@@ -1,6 +1,28 @@
-var express     = require('express');
-var app         = express();
-var fs          = require('fs');
+var app = require('express')();
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+
+var fs = require('fs');
+
+var MongoClient = require('mongodb').MongoClient;
+
+// Connection URL
+var url = 'mongodb://admin:123456@localhost:27017?authMechanism=DEFAULT';
+
+// Use connect method to connect to the Server
+MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    if (dbo) {
+        console.log("connect db successfully");
+    }
+    // dbo.createCollection("customers", function (err, res) {
+    //     if (err) throw err;
+    //     console.log("Collection created!");
+    //     db.close();
+    // });
+    db.close();
+});
 
 app.listen(3000, function() {
     console.log("[NodeJS] Application Listening on Port 3000");
