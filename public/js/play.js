@@ -1,4 +1,5 @@
 $(function () {
+    
     var playerTrack = $("#player-track"),
         bgArtwork = $('#bg-artwork'),
         bgArtworkUrl,
@@ -22,6 +23,7 @@ $(function () {
         currIndex = -1,
         socket = io();
 
+        
     function playPause() {
         setTimeout(function () {
             if (audio.paused) {
@@ -41,7 +43,6 @@ $(function () {
             }
         }, 300);
     }
-
 
     function showHover(event) {
         seekBarPos = sArea.offset();
@@ -242,6 +243,21 @@ $(function () {
         trackUrl = ['http://192.168.1.4:3000/api/play/b', 'http://192.168.1.4:3000/api/play/b', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'];
     });
 
-    initPlayer();
+    // initPlayer();
+
+    function login() {
+        $("#player").css("display", "none");
+        $("#chat-box").css("display", "none");
+
+        $('form').submit(function (e) {
+            e.preventDefault(); // prevents page reloading
+            var userName = $("#username").val();
+            var passwd = $("#password").val();
+            console.log(userName);
+            return false;
+        });
+    }
+
+    login();
 
 });

@@ -3,12 +3,27 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/play3.html');
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://admin:123456@localhost:27017?authMechanism=DEFAULT';
+
+// Use connect method to connect to the Server
+var client = MongoClient.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("stream");
+    if (dbo) {
+        console.log("connect db successfully");
+    }
+    const items = db.collection('users').find({}).toArray();
+    console.log(items);
+    db.close();
 });
-
-app.use('/public', express.static('public'))
 
 io.on('connection', function (socket) {
     console.log('A User connected');
@@ -29,8 +44,14 @@ http.listen(3000, function () {
     console.log('Listen on *:3000');
 });
 
-app.get('/api/play/:key', function(req, res){
-    
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/play3.html');
+});
+
+app.use('/public', express.static('public'))
+
+app.get('/api/play/:key', function (req, res) {
+
     // var key = req.params.key;
     // range = req.headers.range;
     // console.log(key);
@@ -77,7 +98,7 @@ app.get('/api/play/:key', function(req, res){
             'Content-Range': "bytes " + start + "-" + end + "/" + stat.size
         });
 
-        readStream = fs.createReadStream(music, {start: start, end: end});
+        readStream = fs.createReadStream(music, { start: start, end: end });
     } else {
         res.header({
             'Content-Type': 'audio/mpeg',
@@ -87,4 +108,9 @@ app.get('/api/play/:key', function(req, res){
     }
     readStream.pipe(res);
 
+});
+
+app.post('/api/login', function (req, res) {
+    var token = req.body.username;
+    var geo = req.body.password;
 });

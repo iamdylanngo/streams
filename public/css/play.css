@@ -311,3 +311,9 @@ body {
     height: 100%;
     z-index: 3;
 }
+
+#login {
+    position: relative;
+    height: 100%;
+    z-index: 3;
+}
