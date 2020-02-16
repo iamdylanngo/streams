@@ -1,5 +1,5 @@
 $(function () {
-    
+
     var playerTrack = $("#player-track"),
         bgArtwork = $('#bg-artwork'),
         bgArtworkUrl,
@@ -17,13 +17,13 @@ $(function () {
         albums = ['Dawn', 'Me & You', 'Electro Boy', 'Home', 'Proxy (Original Mix)'],
         trackNames = ['Skylike - Dawn', 'Alex Skrindo - Me & You', 'Kaaze - Electro Boy', 'Jordan Schor - Home', 'Martin Garrix - Proxy'],
         albumArtworks = ['_1', '_2', '_3', '_4', '_5'],
-        trackUrl = ['http://192.168.1.4:3000/api/play/a', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/1.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'],
+        trackUrl = ['http://192.168.1.4:3000/api/play/c', 'http://192.168.1.4:3000/api/play/c', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'],
         playPreviousTrackButton = $('#play-previous'),
         playNextTrackButton = $('#play-next'),
         currIndex = -1,
         socket = io();
 
-        
+
     function playPause() {
         setTimeout(function () {
             if (audio.paused) {
@@ -240,24 +240,13 @@ $(function () {
 
     socket.on('message', function (msg) {
         $('#messages').append($('<li>').text(msg));
-        trackUrl = ['http://192.168.1.4:3000/api/play/b', 'http://192.168.1.4:3000/api/play/b', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'];
+        albums = ['Dawn', 'Me & You', 'Electro Boy', 'Home', 'Proxy (Original Mix)'],
+        trackNames = ['Skylike - Dawn', 'Alex Skrindo - Me & You', 'Kaaze - Electro Boy', 'Jordan Schor - Home', 'Martin Garrix - Proxy'],
+        albumArtworks = ['_1', '_2', '_3', '_4', '_5'],
+        trackUrl = ['http://192.168.1.4:3000/api/play/d', 'http://192.168.1.4:3000/api/play/d', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'];
+        selectTrack(1);
     });
 
-    // initPlayer();
-
-    function login() {
-        $("#player").css("display", "none");
-        $("#chat-box").css("display", "none");
-
-        $('form').submit(function (e) {
-            e.preventDefault(); // prevents page reloading
-            var userName = $("#username").val();
-            var passwd = $("#password").val();
-            console.log(userName);
-            return false;
-        });
-    }
-
-    login();
+    initPlayer();
 
 });

@@ -9,8 +9,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var url = 'mongodb://admin:123456@localhost:27017?authMechanism=DEFAULT';
 
-// Use connect method to connect to the Server
-
 io.on('connection', function (socket) {
     console.log('A User connected');
     console.log('ID: ', socket.conn.id);
@@ -31,33 +29,12 @@ http.listen(3000, function () {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/play3.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.use('/public', express.static('public'))
 
 app.get('/api/play/:key', function (req, res) {
-
-    // var key = req.params.key;
-    // range = req.headers.range;
-    // console.log(key);
-    // console.log(range);
-
-    // var readStream;
-
-    // var path = 'music/' + key + '.mp3';
-    // var stat = fs.statSync(path);
-
-    // console.log(stat);
-
-    // res.header({
-    //     'Content-Type': 'audio/mpeg',
-    //     'Content-Length': stat.size
-    // });
-
-    // readStream = fs.createReadStream(path);
-    // readStream.pipe(res);
-
     var key = req.params.key;
     var music = 'music/' + key + '.mp3';
     var stat = fs.statSync(music);
