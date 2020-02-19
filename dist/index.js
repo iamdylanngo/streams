@@ -49,7 +49,10 @@ httpServer.listen(process.env.SERVER_PORT, function () {
   console.log('Listen on *:' + process.env.SERVER_PORT);
 });
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/music.html');
+});
+app.get('/login', function (req, res) {
+  res.sendFile(__dirname + '/login.html');
 });
 app.use('/public', _express.default.static('public'));
 app.use('/api/v1/user', _v.User);

@@ -3,8 +3,26 @@ const router = new Router();
 
 import UserModel from '../../models/user';
 
+const handlerError = (res, httpCode, message) => res.status(httpCode).json({
+    message: message,
+    data: {}
+});
+
 router.post('/create', async (req, res) => {
     try {
+
+        if (!req.body.username) {
+            return handlerError(res, 400, 'username is require.');
+        }
+        if (!req.body.password) {
+            return handlerError(res, 400, 'password is require.');
+        }
+
+        let checkUser = await UserModel.findOne({username: new RegExp('^'+req.body.username+'$', "i")});
+        if (checkUser) {
+            return handlerError(res, 400, 'user is exists');
+        }
+
         let user = await new UserModel({
             username: req.body.username,
             password: req.body.password,
@@ -18,12 +36,12 @@ router.post('/create', async (req, res) => {
             }
         });
 
-        return res.send({
+        return res.status(200).json({
             message: "register successfully",
             data: user
         })
     } catch (err) {
-        return res.send({
+        return res.status(500).json({
             message: err,
             data: {}
         })
@@ -32,19 +50,30 @@ router.post('/create', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-       console.log('login');
-       console.log(req.body.username);
-        const query = await UserModel.find();
+       
+        if (!req.body.username) {
+            return handlerError(res, 400, 'username is require.');
+        }
+        if (!req.body.password) {
+            return handlerError(res, 400, 'password is require.');
+        }
 
-        console.log(quey);
+        let user = await UserModel.findOne({username: new RegExp('^'+req.body.username+'$', "i")});
+        if (!user) {
+            return handlerError(res, 400, 'user is not exists');
+        }
 
-        return res.send({
+        if (user.password != req.body.password) {
+            return handlerError(res, 400, 'password incorrect');
+        }
+
+        return res.status(200).json({
             message: "login successfully",
-            data: {}
+            data: user
         });
 
     } catch (err) {
-        return res.send({
+        return res.status(500).json({
             message: err,
             data: {}
         })

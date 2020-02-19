@@ -2,7 +2,8 @@ import { Router } from 'express';
 const router = new Router();
 import fs from 'fs';
 
-router.get('/play/:key', function (req, res) {
+router.get('/play/:key', async (req, res) => {
+
     let key = req.params.key;
     let music = 'music/' + key + '.mp3';
     let stat = fs.statSync(music);
@@ -39,6 +40,22 @@ router.get('/play/:key', function (req, res) {
     }
     readStream.pipe(res);
 
+});
+
+router.get('/get-config', async (req, res) => {
+    try {
+        return res.status(200).json({
+            message: "getconfig",
+            data: {
+                url: process.env.SERVER_HOST + ':' + process.env.SERVER_PORT
+            }
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: err,
+            data: {}
+        });
+    }
 });
 
 export default router;

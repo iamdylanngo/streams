@@ -14,10 +14,10 @@ $(function () {
         playPauseButton = $("#play-pause-button"), i = playPauseButton.find('i'),
         tProgress = $('#current-time'), tTime = $('#track-length'),
         seekT, seekLoc, seekBarPos, cM, ctMinutes, ctSeconds, curMinutes, curSeconds, durMinutes, durSeconds, playProgress, bTime, nTime = 0, buffInterval = null, tFlag = false,
-        albums = ['Dawn', 'Me & You', 'Electro Boy', 'Home', 'Proxy (Original Mix)'],
-        trackNames = ['Skylike - Dawn', 'Alex Skrindo - Me & You', 'Kaaze - Electro Boy', 'Jordan Schor - Home', 'Martin Garrix - Proxy'],
-        albumArtworks = ['_1', '_2', '_3', '_4', '_5'],
-        trackUrl = ['http://10.10.16.92:3001/api/v1/music/play/a', 'http://10.10.16.92:3001/api/v1/music/play/b', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'],
+        albums = [''],
+        trackNames = [''],
+        albumArtworks = [''],
+        trackUrl = [''],
         playPreviousTrackButton = $('#play-previous'),
         playNextTrackButton = $('#play-next'),
         currIndex = -1,
@@ -34,8 +34,8 @@ $(function () {
                 audio.play();
             }
             else {
-                // playerTrack.removeClass('active');
-                // albumArt.removeClass('active');
+                playerTrack.removeClass('active');
+                albumArt.removeClass('active');
                 clearInterval(buffInterval);
                 albumArt.removeClass('buffering');
                 i.attr('class', 'fas fa-play');
@@ -231,22 +231,53 @@ $(function () {
         playNextTrackButton.on('click', function () { selectTrack(1); });
     }
 
+    // Check user login
+    var user = JSON.parse(localStorage.getItem("user"));
+    if(!user) {
+        window.location.href = '/login';
+    }
+
+    var host = 'localhost';
+    var port = '3001';
+
+    socket.on('config', function (res) {
+        host = res.host;
+        port = res.port;
+
+        var config = JSON.stringify({
+            host: host,
+            port: port,
+        });
+        localStorage.setItem("config", config);
+
+
+    });
+
+    socket.on('updatemusic', function(res) {
+        console.log(res);
+        albums = res.albums;
+        trackNames = res.trackNames;
+        albumArtworks = res.albumArtworks;
+        trackUrl = res.trackUrl;
+    });
+
     $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading
-        socket.emit('message', $('#m').val());
+        socket.emit('message', {
+            message: $('#m').val(),
+            nickname: user.nickname,
+            username: user.username,
+        });
         $('#m').val('');
         return false;
     });
 
     socket.on('message', function (msg) {
-        $('#messages').append($('<li>').text(msg));
-        albums = ['Dawn', 'Me & You', 'Electro Boy', 'Home', 'Proxy (Original Mix)'],
-        trackNames = ['Skylike - Dawn', 'Alex Skrindo - Me & You', 'Kaaze - Electro Boy', 'Jordan Schor - Home', 'Martin Garrix - Proxy'],
-        albumArtworks = ['_1', '_2', '_3', '_4', '_5'],
-        trackUrl = ['http://10.10.16.92:3001/api/v1/music/play/a', 'http://10.10.16.92:3001/api/v1/music/play/b', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/3.mp3', 'https://raw.gitdevice-widthhubusercontent.com/himalayasingh/music-player-1/master/music/4.mp3', 'https://raw.githubusercontent.com/himalayasingh/music-player-1/master/music/5.mp3'];
-        // selectTrack(1);
+        $('#messages').append($('<li>').text(msg.nickname + ': ' + msg.message));
     });
 
-    initPlayer();
+    setTimeout(() => {
+        initPlayer();
+    }, 2000);
 
 });

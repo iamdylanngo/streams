@@ -7,7 +7,7 @@
     "server": "node ./dist/index.js",
     "transpile": "babel ./src/ --out-dir dist",
     "clean": "rimraf ./dist",
-    "copy": "node ./dist/copy public/index.html dist/",
+    "copy": "node ./dist/copy public/music.html dist/ && node ./dist/copy public/login.html dist/",
     "music": "npm run clean && npm run transpile && npm run copy && npm run server"
   },
   "author": "Dylan.Ngo",

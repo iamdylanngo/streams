@@ -26,8 +26,13 @@ httpServer.listen(process.env.SERVER_PORT, function () {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/music.html');
 });
+
+app.get('/login', function (req, res) {
+    res.sendFile(__dirname + '/login.html');
+});
+
 app.use('/public', express.static('public'));
 
 app.use('/api/v1/user', User);

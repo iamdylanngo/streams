@@ -12,7 +12,7 @@ var _fs = _interopRequireDefault(require("fs"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const router = new _express.Router();
-router.get('/play/:key', function (req, res) {
+router.get('/play/:key', async (req, res) => {
   let key = req.params.key;
   let music = 'music/' + key + '.mp3';
 
@@ -51,6 +51,21 @@ router.get('/play/:key', function (req, res) {
   }
 
   readStream.pipe(res);
+});
+router.get('/get-config', async (req, res) => {
+  try {
+    return res.status(200).json({
+      message: "getconfig",
+      data: {
+        url: process.env.SERVER_HOST + ':' + process.env.SERVER_PORT
+      }
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err,
+      data: {}
+    });
+  }
 });
 var _default = router;
 exports.default = _default;
