@@ -33,6 +33,10 @@ app.get('/login', function (req, res) {
     res.sendFile(__dirname + '/login.html');
 });
 
+app.get('/upload', function (req, res) {
+    res.sendFile(__dirname + '/upload.html');
+});
+
 app.use('/public', express.static('public'));
 
 app.use('/api/v1/user', User);

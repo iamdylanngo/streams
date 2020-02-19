@@ -54,6 +54,9 @@ app.get('/', function (req, res) {
 app.get('/login', function (req, res) {
   res.sendFile(__dirname + '/login.html');
 });
+app.get('/upload', function (req, res) {
+  res.sendFile(__dirname + '/upload.html');
+});
 app.use('/public', _express.default.static('public'));
 app.use('/api/v1/user', _v.User);
 app.use('/api/v1/music', _v.Music);
