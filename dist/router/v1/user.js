@@ -17,10 +17,13 @@ router.post('/create', async (req, res) => {
     let user = await new _user.default({
       username: req.body.username,
       password: req.body.password,
+      nickname: req.body.username,
       rules: 0
     });
     user.save(function (err) {
-      console.log(err);
+      if (err) {
+        console.log(err);
+      }
     });
     return res.send({
       message: "register successfully",
