@@ -97,11 +97,10 @@ let diskStorage = _multer.default.diskStorage({
     callback(null, "uploads");
   },
   filename: (req, file, callback) => {
-    let math = ["image/png", "image/jpeg", "audio/mpeg3", "audio/x-mpeg-3", "audio/mp3"];
-    console.log(file.mimetype);
+    let math = ["audio/mpeg3", "audio/x-mpeg-3", "audio/mp3"];
 
     if (math.indexOf(file.mimetype) === -1) {
-      let errorMess = `The file <strong>${file.originalname}</strong> is invalid. Only allowed to upload image jpeg or png.`;
+      let errorMess = `The file <strong>${file.originalname}</strong> is invalid. Only allowed to upload mp3.`;
       return callback(errorMess, null);
     }
 
@@ -121,7 +120,12 @@ router.post('/upload', async (req, res) => {
       });
     }
 
-    res.sendFile(_path.default.join(`${__dirname}/uploads/${req.file.filename}`));
+    var dirName = _path.default.normalize(__dirname + `/../../../uploads/${req.file.filename}`);
+
+    res.status(200).json({
+      message: 'File save to: ' + dirName,
+      data: {}
+    });
   });
 });
 var _default = router;

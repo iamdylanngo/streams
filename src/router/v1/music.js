@@ -107,8 +107,11 @@ router.post('/upload', async (req, res) => {
                 message: err
             });
         }
-        res.sendFile(path.join(`${__dirname}/uploads/${req.file.filename}`));
-        
+        var dirName = path.normalize(__dirname+`/../../../uploads/${req.file.filename}`);
+        res.status(200).json({
+            message: 'File save to: ' + dirName,
+            data: {}
+        });
     });
 });
 
