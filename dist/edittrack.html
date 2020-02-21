@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Track</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Track Information</h3>
+        <div class="row">
+            <form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Track Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="TrackName" aria-label="TrackName"
+                        aria-describedby="basic-addon1" id="trackname">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Artists</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Artists" aria-label="Artists"
+                        aria-describedby="basic-addon1" id="artists">
+                </div>
+                <select class="custom-select" multiple>
+                    <option selected>Kind of music</option>
+                    <option value="1">Pop</option>
+                    <option value="2">Rap</option>
+                    <option value="3">Rock</option>
+                    <option value="4">EMD</option>
+                    <option value="5">Acoustic</option>
+                    <option value="6">Indie</option>
+                    <option value="7">KPop</option>
+                    <option value="8">VPop</option>
+                    <option value="9">English</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="public/js/edittrack.js"></script>
+</body>
+
+</html>

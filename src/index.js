@@ -37,6 +37,10 @@ app.get('/upload', function (req, res) {
     res.sendFile(__dirname + '/upload.html');
 });
 
+app.get('/edittrack', function (req, res) {
+    res.sendFile(__dirname + '/edittrack.html');
+});
+
 app.use('/public', express.static('public'));
 
 app.use('/api/v1/user', User);

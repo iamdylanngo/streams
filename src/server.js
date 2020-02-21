@@ -4,8 +4,6 @@ var Music = function (socket) {
     self.id = socket.id;
 }
 
-
-
 const Server = (httpServer) => {
 
     const domain = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT;
