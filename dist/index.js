@@ -46,7 +46,7 @@ _dotenv.default.config(); // connect mongodb
 
 (0, _server.default)(httpServer);
 httpServer.listen(process.env.SERVER_PORT, function () {
-  console.log('Listen on *:' + process.env.SERVER_PORT);
+  console.log('Server listen on port *:' + process.env.SERVER_PORT);
 });
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/music.html');
@@ -63,5 +63,7 @@ app.get('/edittrack', function (req, res) {
 app.use('/public', _express.default.static('public'));
 app.use('/api/v1/user', _v.User);
 app.use('/api/v1/music', _v.Music);
+app.use('/api/v1/track', _v.Track);
+app.use('/api/v1/type', _v.Type);
 var _default = _express.Router;
 exports.default = _default;

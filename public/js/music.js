@@ -237,24 +237,25 @@ $(function () {
         window.location.href = '/login';
     }
 
+    // Update config
     var host = 'localhost';
     var port = '3001';
 
     socket.on('config', function (res) {
         host = res.host;
         port = res.port;
+        types = res.types;
 
         var config = JSON.stringify({
             host: host,
             port: port,
+            types: types,
         });
         localStorage.setItem("config", config);
-
-
     });
 
     socket.on('updatemusic', function(res) {
-        console.log(res);
+        // console.log(res);
         albums = res.albums;
         trackNames = res.trackNames;
         albumArtworks = res.albumArtworks;
@@ -276,6 +277,8 @@ $(function () {
         $('#messages').append($('<li>').text(msg.nickname + ': ' + msg.message));
     });
 
+    playerTrack.removeClass('active');
+    albumArt.removeClass('active');
     setTimeout(() => {
         initPlayer();
     }, 2000);

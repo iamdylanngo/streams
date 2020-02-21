@@ -8,7 +8,7 @@ export const connectMongoDB = () => {
             useUnifiedTopology: true
         }
     ).then(() => {
-        console.log("connected to mongodb");
+        console.log("Connected to mongodb");
     }).catch((err) => {
         console.log(err);
     });

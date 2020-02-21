@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = new Router();
 
-import UserModel from '../../models/user';
+import UserModel from '../../models/users';
 
 const handlerError = (res, httpCode, message) => res.status(httpCode).json({
     message: message,

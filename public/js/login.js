@@ -432,10 +432,12 @@ function loginLogic() {
             success: function (data, textStatus, jQxhr) {
                 if (jQxhr.status == 200) {
                     console.log(data);
-                    alert('Login is complete.');
+                    // alert('Login is complete.');
                     var user = JSON.stringify({
                         username: data.data.username,
                         nickname: data.data.nickname,
+                        rules: data.data.rules,
+                        id: data.data._id,
                     });
                     localStorage.setItem("user", user);
 

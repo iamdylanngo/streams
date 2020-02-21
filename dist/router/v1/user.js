@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _express = require("express");
 
-var _user = _interopRequireDefault(require("../../models/user"));
+var _users = _interopRequireDefault(require("../../models/users"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,7 +28,7 @@ router.post('/create', async (req, res) => {
       return handlerError(res, 400, 'password is require.');
     }
 
-    let checkUser = await _user.default.findOne({
+    let checkUser = await _users.default.findOne({
       username: new RegExp('^' + req.body.username + '$', "i")
     });
 
@@ -36,7 +36,7 @@ router.post('/create', async (req, res) => {
       return handlerError(res, 400, 'user is exists');
     }
 
-    let user = await new _user.default({
+    let user = await new _users.default({
       username: req.body.username,
       password: req.body.password,
       nickname: req.body.username,
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
       return handlerError(res, 400, 'password is require.');
     }
 
-    let user = await _user.default.findOne({
+    let user = await _users.default.findOne({
       username: new RegExp('^' + req.body.username + '$', "i")
     });
 

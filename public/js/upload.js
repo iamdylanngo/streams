@@ -22,8 +22,8 @@ $('#upload').click(() => {
         alert('Please enter artists.');
         return;
     }
-    if($('#kind').val()[0] == "Kind of music") { 
-        alert('Please select kind.');
+    if($('#type').val()[0] == "Choose Type") { 
+        alert('Please choose type.');
         return;
     }
 
@@ -34,7 +34,11 @@ $('#upload').click(() => {
         processData: false,
         contentType: false,
         success: function (result) {
-            console.log(result);
+            if (result.data.filename) {
+                updateTrackInfo(result.data.filename);
+            } else {
+                console.log(result);
+            }
         },
         error: function(error) {
             if(error) {
@@ -43,3 +47,50 @@ $('#upload').click(() => {
         }
     });
 });
+
+function updateTrackInfo(trackPath) {
+    var trackname = $('#trackname').val();
+    var artists = $('#artists').val();
+    var type = $('#type').val();
+    var user = JSON.parse(localStorage.getItem("user"));
+
+    var data = {
+        name: trackname,
+        artists: artists,
+        type: type,
+        path: trackPath,
+        user_id: user ? user.id : 0,
+    }
+
+    $.ajax({
+        url: '/api/v1/track/create',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (data, textStatus, jQxhr) {
+            if (jQxhr.status == 200) {
+                // console.log(data);
+                alert('Add track is complete');
+            }
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(jqXhr);
+            if (jqXhr.status == 400) {
+                alert(jqXhr.responseJSON.message);
+            } else {
+                alert('Login is fail, Please try again');
+            }
+        }
+    });
+}
+
+function initUpload() {
+    var config = JSON.parse(localStorage.getItem("config"));
+    var types = config.types;
+    for(var i = 0; i < types.length; i++) {
+        $('#type').append(`<option value="${types[i].id}"> ${types[i].name} </option>`); 
+    }
+}
+
+initUpload();

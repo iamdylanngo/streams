@@ -1,57 +1,88 @@
 import socketIO from 'socket.io';
+import TypeModel from './models/types';
+import TrackModel from './models/tracks';
 
-var Music = function (socket) {
-    self.id = socket.id;
+const getTracks = async () => {
+    
+    const domain = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT;
+
+    const musics = {
+        albums: [],
+        trackNames: [],
+        albumArtworks: [],
+        trackUrl: []
+    };
+
+    let tracks = await TrackModel.find({});
+    tracks.forEach((item) => {
+        // console.log(item);
+        musics.trackNames.push(item.name);
+        musics.albums.push(item.artists);
+        musics.albumArtworks.push('_1');
+        musics.trackUrl.push(domain + '/api/v1/music/play1/'+item.path);
+    });
+
+    return musics;
 }
 
-const Server = (httpServer) => {
+const Server = async (httpServer) => {
 
     const domain = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT;
 
     const musics = {
-        albums: ['albums', 'albums', 'albums', 'albums', 'albums'],
-        trackNames: ['Anh Thanh Niên', 'Duyên Trời Lấy 2', 'Duyên Trời Lấy', 'Có Em Đời Bỗng Vui', 'Hoa Vô Sắc'],
-        albumArtworks: ['_1', '_2', '_3', '_4', '_5'],
-        trackUrl: [domain + '/api/v1/music/play/1', domain + '/api/v1/music/play/2', domain + '/api/v1/music/play/3', domain + '/api/v1/music/play/4', domain + '/api/v1/music/play/5']
+        albums: [],
+        trackNames: [],
+        albumArtworks: [],
+        trackUrl: []
     };
+
+    let tracks = await TrackModel.find({});
+    tracks.forEach((item) => {
+        // console.log(item);
+        musics.trackNames.push(item.name);
+        musics.albums.push(item.artists);
+        musics.albumArtworks.push('_1');
+        musics.trackUrl.push(domain + '/api/v1/music/play1/'+item.path);
+    });
 
     let io = new socketIO(httpServer);
     let SOCKET_LIST = [];
-    io.on('connection', function (socket) {
-        console.log('A User connected');
-        console.log('ID: ', socket.conn.id);
-        console.log('remoteAddress', socket.conn.remoteAddress);
+
+    io.on('connection', async (socket) => {
+        console.log('===========> Time ', new Date());
+        console.log('User connected ID: ', socket.conn.id);
+        console.log('remoteAddress: ', socket.conn.remoteAddress);
 
         SOCKET_LIST[socket.id] = socket;
 
-        io.on('client-info', function(res) {
-            console.log("client-info");
-            console.log(res);
-        });
-
         socket.on('message', function (msg) {
-            console.log('message: ' + msg);
+            // console.log('message: ' + msg);
             io.emit('message', msg);
         });
 
         socket.on('disconnect', function () {
+            console.log('===========> Time ', new Date());
             console.log('User disconnect');
         });
 
+        let types = await TypeModel.find({});
+        
         var config = {
             host: process.env.SERVER_HOST,
             port: process.env.SERVER_PORT,
+            types: types,
         }
 
         io.emit('config', config);
 
     });
 
-    setInterval(() => {
+    setInterval(async () => {
         for (var i in SOCKET_LIST) {
             var socket = SOCKET_LIST[i];
             // console.log(socket.id);
-            socket.emit('updatemusic', musics);
+            const tracks = await getTracks();
+            socket.emit('updatemusic', tracks);
         }
     }, 1000 / 25);
 
