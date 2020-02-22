@@ -49,9 +49,9 @@ const Server = async (httpServer) => {
     let SOCKET_LIST = [];
 
     io.on('connection', async (socket) => {
-        console.log('===========> Time ', new Date());
-        console.log('User connected ID: ', socket.conn.id);
-        console.log('remoteAddress: ', socket.conn.remoteAddress);
+        // console.log('===========> Time ', new Date());
+        // console.log('User connected ID: ', socket.conn.id);
+        // console.log('remoteAddress: ', socket.conn.remoteAddress);
 
         SOCKET_LIST[socket.id] = socket;
 
@@ -63,6 +63,11 @@ const Server = async (httpServer) => {
         socket.on('disconnect', function () {
             console.log('===========> Time ', new Date());
             console.log('User disconnect');
+        });
+
+        socket.on('user', (res) => {
+            console.log('===========> Time ', new Date());
+            console.log('User connected: ', res.username);
         });
 
         let types = await TypeModel.find({});

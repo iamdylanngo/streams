@@ -262,6 +262,9 @@ $(function () {
         trackUrl = res.trackUrl;
     });
 
+    var user = JSON.parse(localStorage.getItem("user"));
+    socket.emit('user', user)
+
     $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading
         socket.emit('message', {
