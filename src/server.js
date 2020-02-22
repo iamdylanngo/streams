@@ -47,6 +47,7 @@ const Server = async (httpServer) => {
 
     let io = new socketIO(httpServer);
     let SOCKET_LIST = [];
+    let admin = {};
 
     io.on('connection', async (socket) => {
         // console.log('===========> Time ', new Date());
@@ -70,8 +71,10 @@ const Server = async (httpServer) => {
             console.log('User connected: ', res.username);
         });
 
-        socket.on('tProgress', (res) => {
+        socket.on('admin', (res) => {
             console.log(res);
+            admin = res;
+
         });
 
         let types = await TypeModel.find({});
@@ -91,7 +94,10 @@ const Server = async (httpServer) => {
             var socket = SOCKET_LIST[i];
             // console.log(socket.id);
             const tracks = await getTracks();
-            socket.emit('update', tracks);
+            socket.emit('update', {
+                tracks: tracks,
+                admin: admin
+            });
         }
     }, 1000 / 25);
 

@@ -87,12 +87,6 @@ $(function () {
         hideHover();
     }
 
-    function playFromClickedPos(seekLocTemp, seekTTemp) {
-        audio.currentTime = seekLocTemp;
-        seekBar.width(seekTTemp);
-        hideHover();
-    }
-
     function updateCurrTime() {
         nTime = new Date();
         nTime = nTime.getTime();
@@ -247,8 +241,6 @@ $(function () {
     var host = 'localhost';
     var port = '3001';
 
-    var admin = {};
-
     socket.on('config', function (res) {
         host = res.host;
         port = res.port;
@@ -263,16 +255,25 @@ $(function () {
     });
 
     socket.on('update', function(res) {
-        console.log(res);
+        // console.log(res);
         albums = res.tracks.albums;
         trackNames = res.tracks.trackNames;
         albumArtworks = res.tracks.albumArtworks;
         trackUrl = res.tracks.trackUrl;
-        admin = res.admin;
     });
 
     var user = JSON.parse(localStorage.getItem("user"));
     socket.emit('user', user);
+    if (user.rules == 1) {
+        setInterval(() => {
+            console.log('seekT');
+            console.log(seekT);
+            socket.emit('admin', {
+                seekLoc: seekLoc,
+                seekT: seekT
+            });
+        }, 1000 / 25);
+    }
 
     $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading
@@ -293,12 +294,6 @@ $(function () {
     albumArt.removeClass('active');
     setTimeout(() => {
         initPlayer();
-        playFromClickedPos(admin.seekLoc, admin.seekT);
-        playerTrack.addClass('active');
-        albumArt.addClass('active');
-        checkBuffering();
-        i.attr('class', 'fas fa-pause');
-        audio.play();
     }, 2000);
 
 });
