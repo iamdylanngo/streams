@@ -254,7 +254,7 @@ $(function () {
         localStorage.setItem("config", config);
     });
 
-    socket.on('updatemusic', function(res) {
+    socket.on('update', function(res) {
         // console.log(res);
         albums = res.albums;
         trackNames = res.trackNames;
@@ -263,7 +263,14 @@ $(function () {
     });
 
     var user = JSON.parse(localStorage.getItem("user"));
-    socket.emit('user', user)
+    socket.emit('user', user);
+    if (user.rules == 1) {
+        setInterval(() => {
+            socket.emit('tProgress', {
+                tProgress: tProgress.text()
+            });
+        }, 1000 / 25);
+    }
 
     $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading

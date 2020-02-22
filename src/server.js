@@ -70,6 +70,10 @@ const Server = async (httpServer) => {
             console.log('User connected: ', res.username);
         });
 
+        socket.on('tProgress', (res) => {
+            console.log(res);
+        });
+
         let types = await TypeModel.find({});
         
         var config = {
@@ -87,7 +91,7 @@ const Server = async (httpServer) => {
             var socket = SOCKET_LIST[i];
             // console.log(socket.id);
             const tracks = await getTracks();
-            socket.emit('updatemusic', tracks);
+            socket.emit('update', tracks);
         }
     }, 1000 / 25);
 
