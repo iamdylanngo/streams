@@ -12,15 +12,15 @@ docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_R
 ```bash
 npm i
 
-cp .env.example .env
+change name file: .env.example to .env
 
-npm run music
+npm run start
 ````
 
 Change SERVER_HOST to your IP
 
 ## Goto 
 
-http://localhost:3001
+http://IP:3001
 
-http://localhost:3001/upload
+http://IP:3001/upload
