@@ -233,7 +233,7 @@ $(function () {
 
     // Check user login
     var user = JSON.parse(localStorage.getItem("user"));
-    if(!user) {
+    if (!user) {
         window.location.href = '/login';
     }
 
@@ -254,7 +254,7 @@ $(function () {
         localStorage.setItem("config", config);
     });
 
-    socket.on('update', function(res) {
+    socket.on('update', function (res) {
         // console.log(res);
         albums = res.albums;
         trackNames = res.trackNames;
@@ -272,19 +272,54 @@ $(function () {
         }, 1000 / 25);
     }
 
+    function sendMessage  ()  {
+       
+    }
+
     $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading
         socket.emit('message', {
-            message: $('#m').val(),
+            message: $('#message-to-send').val(),
             nickname: user.nickname,
             username: user.username,
         });
-        $('#m').val('');
+        $('#message-to-send').val('');
         return false;
     });
 
+    $("#message-to-send").keypress(function (e) {
+        if(e.which == 13) {
+            e.preventDefault(); // prevents page reloading
+            socket.emit('message', {
+                message: $('#message-to-send').val(),
+                nickname: user.nickname,
+                username: user.username,
+            });
+            $('#message-to-send').val('');
+            return false;
+        }
+    });
+
     socket.on('message', function (msg) {
-        $('#messages').append($('<li>').text(msg.nickname + ': ' + msg.message));
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var message = `   
+        <li class="clearfix">
+        <div class="message-data align-right">
+          <span class="message-data-time" >${time}</span> &nbsp; &nbsp;
+          <span class="message-data-name" >${msg.nickname}</span> <i class="fa fa-circle me"></i>
+        </div>
+        <div class="message other-message float-right">
+          ${msg.message}
+        </div>
+      </li>`
+        $('#messages').append(message);
+
+        $('.chat-history').animate({scrollTop: $('.chat-history').prop("scrollHeight")}, 500);
+
+        console.log("alo alo");
+        
+
     });
 
     playerTrack.removeClass('active');
