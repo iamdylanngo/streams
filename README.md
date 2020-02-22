@@ -11,8 +11,10 @@ docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_R
 
 ```bash
 npm i
-npm run music
+
 cp .env.example .env
+
+npm run music
 ````
 
 Change SERVER_HOST to your IP
