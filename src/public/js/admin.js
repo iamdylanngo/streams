@@ -254,26 +254,34 @@ $(function () {
         localStorage.setItem("config", config);
     });
 
+    var initPlay = true;
+
     socket.on('update', function(res) {
         // console.log(res);
         albums = res.tracks.albums;
         trackNames = res.tracks.trackNames;
         albumArtworks = res.tracks.albumArtworks;
         trackUrl = res.tracks.trackUrl;
+        if (initPlay) {
+            initPlayer();
+            if (user.rules == 1) {
+                setInterval(() => {
+                    socket.emit('admin', {
+                        seekLoc: seekLoc,
+                        seekT: seekT,
+                        tProgress: tProgress.text(),
+                        tTime: tTime.text(),
+                        currentTime: audio.currentTime || 0,
+                    });
+                }, 1000 / 25);
+            }
+            initPlay = false;
+            console.log(initPlay);
+        }
     });
 
     var user = JSON.parse(localStorage.getItem("user"));
     socket.emit('user', user);
-    if (user.rules == 1) {
-        setInterval(() => {
-            console.log('seekT');
-            console.log(seekT);
-            socket.emit('admin', {
-                seekLoc: seekLoc,
-                seekT: seekT
-            });
-        }, 1000 / 25);
-    }
 
     $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading
@@ -292,8 +300,4 @@ $(function () {
 
     playerTrack.removeClass('active');
     albumArt.removeClass('active');
-    setTimeout(() => {
-        initPlayer();
-    }, 2000);
-
 });

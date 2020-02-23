@@ -68,13 +68,14 @@ const Server = async (httpServer) => {
 
         socket.on('user', (res) => {
             console.log('===========> Time ', new Date());
-            console.log('User connected: ', res.username);
+            if (res){
+                console.log('User connected: ', res.username);
+            }
         });
 
         socket.on('admin', (res) => {
             console.log(res);
             admin = res;
-
         });
 
         let types = await TypeModel.find({});

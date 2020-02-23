@@ -87,9 +87,9 @@ $(function () {
         hideHover();
     }
 
-    function playFromClickedPos(seekLocTemp, seekTTemp) {
-        audio.currentTime = seekLocTemp;
-        seekBar.width(seekTTemp);
+    function playFromClickedPos(currentTimeTemp) {
+        audio.currentTime = currentTimeTemp;
+        seekBar.width(seekT);
         hideHover();
     }
 
@@ -262,13 +262,25 @@ $(function () {
         localStorage.setItem("config", config);
     });
 
+    var initPlay = true;
+
     socket.on('update', function(res) {
-        console.log(res);
+        // console.log(res);
         albums = res.tracks.albums;
         trackNames = res.tracks.trackNames;
         albumArtworks = res.tracks.albumArtworks;
         trackUrl = res.tracks.trackUrl;
         admin = res.admin;
+        if (initPlay) {
+            initPlayer();
+            playFromClickedPos(admin.currentTime);
+            playerTrack.addClass('active');
+            albumArt.addClass('active');
+            i.attr('class', 'fas fa-pause');
+            playPause();
+            initPlay = false;
+            console.log(initPlay);
+        }
     });
 
     var user = JSON.parse(localStorage.getItem("user"));
@@ -291,14 +303,5 @@ $(function () {
 
     playerTrack.removeClass('active');
     albumArt.removeClass('active');
-    setTimeout(() => {
-        initPlayer();
-        playFromClickedPos(admin.seekLoc, admin.seekT);
-        playerTrack.addClass('active');
-        albumArt.addClass('active');
-        checkBuffering();
-        i.attr('class', 'fas fa-pause');
-        audio.play();
-    }, 2000);
 
 });
