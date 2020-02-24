@@ -8,13 +8,7 @@ $(function () {
             cssSelectorAncestor: "#jp_container_1"
         },
             [
-                {
-                    image: 'public/images/weekly/song1.jpg',
-                    title: "Anh Thanh Niên",
-                    artist: "Huy R",
-                    mp3: "http://localhost:3001/api/v1/music/play1/1582382694522-Anh-Thanh-Nien---HuyR.mp3",
-                    option: myPlayListOtion
-                }
+                
             ], {
             swfPath: "js/plugins",
             supplied: "oga, mp3",

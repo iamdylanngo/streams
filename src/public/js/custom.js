@@ -414,10 +414,96 @@ Assigned to: Theme Forest
             setHeight: 345
         });
 
+
         // user register
-        $('#btn_register', function (e) {
-            console.log('adasdads');
+
+        var host = '192.168.0.101';
+        var port = '3001';
+
+        $('#btn_register').click(() => {
+    
+            var email = $('#inp_email').val();
+            var password = $('#inp_password').val();
+            
+            console.log('http://'+host+':'+port+'/api/v1/user/create');
+            
+
+            $.ajax({
+                url: 'http://'+host+':'+port+'/api/v1/user/create',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    username: email,
+                    password: password
+                }),
+                success: function (data, textStatus, jQxhr) {
+                    if (jQxhr.status == 200) {
+                        alert('Register is complete, Please click to login.');
+                    }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(jqXhr);
+                    if (jqXhr.status == 400) {
+                        alert('User is exists, Please try again');
+                    } else {
+                        alert('Register is fail, Please try again');
+                    }
+                }
+            });
         });
+    
+        $('#login').click(() => {
+    
+            var email = $('#loginEmail').val();
+            var password = $('#loginPassword').val();
+    
+            $.ajax({
+                url: 'http://'+host+':'+port+'/api/v1/user/login',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    username: email,
+                    password: password
+                }),
+                success: function (data, textStatus, jQxhr) {
+                    if (jQxhr.status == 200) {
+                        console.log(data);
+                        // alert('Login is complete.');
+                        var user = JSON.stringify({
+                            username: data.data.username,
+                            nickname: data.data.nickname,
+                            rules: data.data.rules,
+                            id: data.data._id,
+                        });
+                        localStorage.setItem("user", user);
+    
+                        // var cache = JSON.parse(localStorage.getItem("user"));
+                        // console.log(cache);
+    
+                        window.location.href = '/';
+    
+                    }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(jqXhr);
+                    if (jqXhr.status == 400) {
+                        alert(jqXhr.responseJSON.message);
+                    } else {
+                        alert('Login is fail, Please try again');
+                    }
+                }
+            });
+    
+        });
+
+        // $('#btn_register', function (e) {
+        //     console.log('adasdads');
+        // });
+
+        ///
+
     });
     // Preloader Js
     jQuery(window).on('load', function () {
