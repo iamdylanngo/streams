@@ -303,16 +303,31 @@ $(function () {
     socket.on('message', function (msg) {
         var today = new Date();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var message = `   
-        <li class="clearfix">
-        <div class="message-data align-right">
-          <span class="message-data-time" >${time}</span> &nbsp; &nbsp;
-          <span class="message-data-name" >${msg.nickname}</span> <i class="fa fa-circle me"></i>
-        </div>
-        <div class="message other-message float-right">
-          ${msg.message}
-        </div>
-      </li>`
+        console.log(user.nickname);
+        var message
+        if(msg.nickname === user.nickname){
+            message = `   
+            <li class="clearfix">
+            <div class="message-data align-right">
+              <span class="message-data-time" >${time}</span> &nbsp; &nbsp;
+              <span class="message-data-name" >${msg.nickname}</span> <i class="fa fa-circle me"></i>
+            </div>
+            <div class="message other-message float-right">
+              ${msg.message}
+            </div>
+          </li>`
+        }else {
+            message = ` <li>
+            <div class="message-data">
+              <span class="message-data-name"><i class="fa fa-circle online"></i> ${msg.nickname}</span>
+              <span class="message-data-time">${time}</span>
+            </div>
+            <div class="message my-message">
+              ${msg.message}
+            </div>
+          </li>`
+        }
+
         $('#messages').append(message);
 
         $('.chat-history').animate({scrollTop: $('.chat-history').prop("scrollHeight")}, 500);
