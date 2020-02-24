@@ -138,7 +138,7 @@ let diskStorage = multer.diskStorage({
     }
 });
 
-let uploadFile = multer({ storage: diskStorage }).single("file");
+let uploadFile = multer({ storage: diskStorage }).single("filemusic");
 
 router.post('/upload', async (req, res) => {
     uploadFile(req, res, (err) => {
