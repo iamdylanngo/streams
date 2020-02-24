@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = new Router();
 
-import TrackModel from '../../models/tracks';
+import TrackModel from '../../models/song';
 
 const handlerError = (res, httpCode, message) => res.status(httpCode).json({
     message: message,

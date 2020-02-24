@@ -4,7 +4,7 @@ import socketIO from 'socket.io';
 import bodyParser from 'body-parser';
 import { connectMongoDB } from './models/db';
 import dotenv from 'dotenv';
-import { User, Music, Track, Type } from './router/v1';
+import { User, Music, Song, Category } from './router/v1';
 import Server from './server';
 
 let app = express();
@@ -37,7 +37,7 @@ app.use('/public', express.static('src/public'));
 
 app.use('/api/v1/user', User);
 app.use('/api/v1/music', Music);
-app.use('/api/v1/track', Track);
-app.use('/api/v1/type', Type);
+app.use('/api/v1/track', Song);
+app.use('/api/v1/type', Category);
 
 export default Router;

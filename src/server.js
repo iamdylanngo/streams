@@ -1,6 +1,6 @@
 import socketIO from 'socket.io';
-import TypeModel from './models/types';
-import TrackModel from './models/tracks';
+import TypeModel from './models/category';
+import TrackModel from './models/song';
 
 const getTracks = async () => {
     

@@ -3,11 +3,11 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const Schema = mongoose.Schema;
 
-const TrackSchema = new Schema({
+const UserSchema = new Schema({
+    email: String,
+    password: String,
     name: String,
-    artists: String,
-    user_id: String,
-    path: String,
+    rules: { type: Number, default: 0 },
 }, 
 {
     timestamps: {
@@ -16,6 +16,6 @@ const TrackSchema = new Schema({
     }
 });
 
-TrackSchema.plugin(mongoosePaginate);
+UserSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('tracks', TrackSchema);
+export default mongoose.model('users', UserSchema);

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = new Router();
 
-import TypeModel from '../../models/types';
+import TypeModel from '../../models/category';
 
 const handlerError = (res, httpCode, message) => res.status(httpCode).json({
     message: message,
