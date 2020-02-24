@@ -26,19 +26,11 @@ httpServer.listen(process.env.SERVER_PORT, function () {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/public/music.html');
-});
-
-app.get('/login', function (req, res) {
-    res.sendFile(__dirname + '/public/login.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/upload', function (req, res) {
     res.sendFile(__dirname + '/public/upload.html');
-});
-
-app.get('/admin', function (req, res) {
-    res.sendFile(__dirname + '/public/admin.html');
 });
 
 app.use('/public', express.static('src/public'));
