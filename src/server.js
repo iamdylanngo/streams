@@ -1,5 +1,5 @@
 import socketIO from 'socket.io';
-import TypeModel from './models/category';
+import TypeModel from './models/genre';
 import TrackModel from './models/song';
 
 const getTracks = async () => {
@@ -90,17 +90,17 @@ const Server = async (httpServer) => {
 
     });
 
-    setInterval(async () => {
-        for (var i in SOCKET_LIST) {
-            var socket = SOCKET_LIST[i];
-            // console.log(socket.id);
-            const tracks = await getTracks();
-            socket.emit('update', {
-                tracks: tracks,
-                admin: admin
-            });
-        }
-    }, 1000 / 25);
+    // setInterval(async () => {
+    //     for (var i in SOCKET_LIST) {
+    //         var socket = SOCKET_LIST[i];
+    //         // console.log(socket.id);
+    //         const tracks = await getTracks();
+    //         socket.emit('update', {
+    //             tracks: tracks,
+    //             admin: admin
+    //         });
+    //     }
+    // }, 1000 / 25);
 
 }
 

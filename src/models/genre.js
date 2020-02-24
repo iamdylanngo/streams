@@ -3,7 +3,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const Schema = mongoose.Schema;
 
-const TypeSchema = new Schema({
+const GenreSchema = new Schema({
     title: String,
     id: Number,
 }, 
@@ -14,6 +14,6 @@ const TypeSchema = new Schema({
     }
 });
 
-TypeSchema.plugin(mongoosePaginate);
+GenreSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('types', TypeSchema);
+export default mongoose.model('types', GenreSchema);
