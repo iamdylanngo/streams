@@ -95,3 +95,14 @@ $('#btn_login_1').click(() => {
     });
 
 });
+
+$(function() {
+        var user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
+        if (user) {
+            $('#login').css("display", "none");
+            $('#logged').css("display", "block");
+            $('#a_username').append(user.name);
+            $('#a_username').append('<span class="ms_pro_name">'+user.name[0]+'</span>');
+        }
+});

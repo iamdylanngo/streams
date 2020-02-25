@@ -194,12 +194,17 @@
                     </div>
                 </div>
                 <div class="ms_top_right">
-                    <div class="ms_top_lang">
-                        <span data-toggle="modal" data-target="#lang_modal">languages <img src="public/images/svg/lang.svg" alt=""></span>
-                    </div>
-                    <div class="ms_top_btn">
+                    <div class="ms_top_btn" id="login" style="display: block;">
                         <a href="javascript:;" class="ms_btn reg_btn" data-toggle="modal" data-target="#myModal"><span>register</span></a>
                         <a href="javascript:;" class="ms_btn login_btn" data-toggle="modal" data-target="#myModal1"><span>login</span></a>
+                    </div>
+                    <div class="ms_top_btn" id="logged" style="display: none;">
+                        <a href="javascript:;" class="ms_admin_name" id="a_username"></a>
+						<ul class="pro_dropdown_menu">
+							<li><a href="profile.html">Profile</a></li>
+							<li><a href="#">Setting</a></li>
+							<li><a href="#">Logout</a></li>
+						</ul>
                     </div>
                 </div>
             </div>
