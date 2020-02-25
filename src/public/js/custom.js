@@ -414,10 +414,6 @@ Assigned to: Theme Forest
             setHeight: 345
         });
 
-        // user register
-        $('#btn_register', function (e) {
-            console.log('adasdads');
-        });
     });
     // Preloader Js
     jQuery(window).on('load', function () {
