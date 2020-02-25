@@ -16,4 +16,4 @@ const GenreSchema = new Schema({
 
 GenreSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('types', GenreSchema);
+export default mongoose.model('genres', GenreSchema);

@@ -18,7 +18,12 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage }).single('file');
+var upload = multer({ 
+    storage: storage,
+    limits: {
+        fieldSize: 1048576
+    }
+}).single('file');
 
 router.post('/upload', async (req, res) => {
     upload(req, res, (err) => {

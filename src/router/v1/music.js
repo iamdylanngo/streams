@@ -77,7 +77,12 @@ let diskStorage = multer.diskStorage({
     }
 });
 
-let uploadFile = multer({ storage: diskStorage }).single("file");
+let uploadFile = multer({ 
+    storage: diskStorage,
+    limits: {
+        fieldSize: 15728640
+    }
+}).single("file");
 
 router.post('/upload', async (req, res) => {
     uploadFile(req, res, (err) => {
@@ -86,7 +91,7 @@ router.post('/upload', async (req, res) => {
                 message: err
             });
         }
-        var dirName = path.normalize(__dirname+`/../../../upload/song/music/${req.file.filename}`);
+        // var dirName = path.normalize(__dirname+`/../../../upload/song/music/${req.file.filename}`);
         res.status(200).json({
             message: 'Upload is successfully',
             data: {

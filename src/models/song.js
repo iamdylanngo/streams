@@ -21,4 +21,4 @@ const SongSchema = new Schema({
 
 SongSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('tracks', SongSchema);
+export default mongoose.model('songs', SongSchema);

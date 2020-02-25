@@ -10,9 +10,9 @@ $(function () {
             [
                 {
                     image: 'public/images/weekly/song1.jpg',
-                    title: "Anh Thanh Niên",
-                    artist: "Huy R",
-                    mp3: "http://localhost:3001/api/v1/music/play1/1582382694522-Anh-Thanh-Nien---HuyR.mp3",
+                    title: "Duyên Trời Lấy 2",
+                    artist: "Chung Thanh Duy",
+                    mp3: "http://localhost:3001/api/v1/music/play/1582592731645-Duyen-Troi-Lay-2---Chung-Thanh-Duy-.mp3",
                     option: myPlayListOtion
                 }
             ], {
