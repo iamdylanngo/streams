@@ -4,7 +4,7 @@ import socketIO from 'socket.io';
 import bodyParser from 'body-parser';
 import { connectMongoDB } from './models/db';
 import dotenv from 'dotenv';
-import { User, Music, Song, Genre } from './router/v1';
+import { User, Music, Song, Genre, Image } from './router/v1';
 import Server from './server';
 
 let app = express();
@@ -19,7 +19,7 @@ dotenv.config();
 // connect mongodb
 connectMongoDB();
 // instance server
-Server(httpServer);
+// Server(httpServer);
 
 httpServer.listen(process.env.SERVER_PORT, function () {
     console.log('Server listen on port *:' + process.env.SERVER_PORT);
@@ -39,5 +39,6 @@ app.use('/api/v1/music', Music);
 app.use('/api/v1/user', User);
 app.use('/api/v1/song', Song);
 app.use('/api/v1/genre', Genre);
+app.use('/api/v1/image', Image);
 
 export default Router;
