@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const GenreSchema = new Schema({
     title: String,
-    id: Number,
+    order: Number,
 }, 
 {
     timestamps: {

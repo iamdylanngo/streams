@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = new Router();
 
-import TypeModel from '../../models/genre';
+import GenreModel from '../../models/genre';
 
 const handlerError = (res, httpCode, message) => res.status(httpCode).json({
     message: message,
@@ -10,7 +10,7 @@ const handlerError = (res, httpCode, message) => res.status(httpCode).json({
 
 router.get('/get', async (req, res) => {
     try {
-        let types = await TypeModel.find({});
+        let types = await GenreModel.find({});
         
         res.status(200).json({
             message: 'Get type is complete',
@@ -30,13 +30,13 @@ router.post('/create', async (req, res) => {
         if (!req.body.name) {
             return handlerError(res, 400, 'name is require.');
         }
-        if (!req.body.id) {
-            return handlerError(res, 400, 'id is require.');
+        if (!req.body.order) {
+            return handlerError(res, 400, 'order is require.');
         }
 
-        let type = await new TypeModel({
+        let type = await new GenreModel({
             name: req.body.name,
-            id: req.body.id,
+            order: req.body.order,
         });
 
         type.save((err) => {

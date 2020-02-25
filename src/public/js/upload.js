@@ -1,7 +1,10 @@
 $('#btn_upload').click(() => {
    
     var fd = new FormData();
-    var files = $('#file')[0].files[0];
+    var files = $('#filemusic')[0].files[0];
+    if ($('#filemusic')[0].files.length == 0) {
+        return alert('MP3 file is require');
+    }
     fd.append('file',files);
 
     jQuery.ajax({
@@ -26,9 +29,10 @@ $('#btn_upload').click(() => {
 function uploadSongImage() {
     var fd = new FormData();
     var files = $('#fileimage')[0].files[0];
-    console.log(files);
+    if ($('#fileimage')[0].files.length == 0) {
+        return alert('MP3 file is require');
+    }
     fd.append('file',files);
-    console.log(fd);
 
     jQuery.ajax({
         url: '/api/v1/image/upload',

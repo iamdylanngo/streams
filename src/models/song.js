@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const SongSchema = new Schema({
     title: String,
-    artistId: String,
+    artist: String,
     genreId: String,
     userId: String,
     length: String,

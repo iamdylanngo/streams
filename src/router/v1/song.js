@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = new Router();
 
-import TrackModel from '../../models/song';
+import SongModel from '../../models/song';
 
 const handlerError = (res, httpCode, message) => res.status(httpCode).json({
     message: message,
@@ -10,24 +10,33 @@ const handlerError = (res, httpCode, message) => res.status(httpCode).json({
 
 router.post('/create', async (req, res) => {
     try {
-        if (!req.body.name) {
-            return handlerError(res, 400, 'name is require.');
+        if (!req.body.title) {
+            return handlerError(res, 400, 'title is require.');
         }
-        if (!req.body.artists) {
-            return handlerError(res, 400, 'artists is require.');
+        if (!req.body.artist) {
+            return handlerError(res, 400, 'artist is require.');
         }
-        if (!req.body.user_id) {
-            return handlerError(res, 400, 'user_id is require.');
+        if (!req.body.genreId) {
+            return handlerError(res, 400, 'genreId is require.');
         }
-        if (!req.body.path) {
-            return handlerError(res, 400, 'path is require.');
+        if (!req.body.userId) {
+            return handlerError(res, 400, 'userId is require.');
+        }
+        if (!req.body.musicPath) {
+            return handlerError(res, 400, 'musicPath is require.');
+        }
+        if (!req.body.imagePath) {
+            return handlerError(res, 400, 'imagePath is require.');
         }
 
-        let track = await new TrackModel({
-            name: req.body.name,
-            artists: req.body.artists,
-            user_id: req.body.user_id,
-            path: req.body.path,
+        let track = await new SongModel({
+            title: req.body.title,
+            artist: req.body.artist,
+            genreId: req.body.genreId,
+            userId: req.body.userId,
+            length: req.body.length,
+            musicPath: req.body.musicPath,
+            imagePath: req.body.imagePath,
         });
 
         track.save((err) => {
@@ -37,13 +46,13 @@ router.post('/create', async (req, res) => {
         });
 
         res.status(200).json({
-            message: 'Create track is complete',
+            message: 'Create track is successfully',
             data: track
         });
 
     } catch(err) {
         if (err) {
-            handlerError(res, 500, 'Create track error');
+            handlerError(res, 500, 'Create track is fail');
         }
     }
 });

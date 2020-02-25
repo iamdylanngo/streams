@@ -1,7 +1,9 @@
 import { Router } from 'express';
+import UserModel from '../../models/user';
+import crypto from 'crypto';
+
 const router = new Router();
 
-import UserModel from '../../models/user';
 
 const handlerError = (res, httpCode, message) => res.status(httpCode).json({
     message: message,
@@ -11,22 +13,27 @@ const handlerError = (res, httpCode, message) => res.status(httpCode).json({
 router.post('/create', async (req, res) => {
     try {
 
-        if (!req.body.username) {
-            return handlerError(res, 400, 'username is require.');
+        if (!req.body.email) {
+            return handlerError(res, 400, 'email is require.');
         }
         if (!req.body.password) {
             return handlerError(res, 400, 'password is require.');
         }
+        if (!req.body.name) {
+            return handlerError(res, 400, 'name is require.');
+        }
 
-        let checkUser = await UserModel.findOne({username: new RegExp('^'+req.body.username+'$', "i")});
+        let checkUser = await UserModel.findOne({email: new RegExp('^'+req.body.email+'$', "i")});
         if (checkUser) {
             return handlerError(res, 400, 'user is exists');
         }
 
+        const passwordHash = crypto.createHash('md5').update(req.body.password).digest("hex");
+
         let user = await new UserModel({
-            username: req.body.username,
-            password: req.body.password,
-            nickname: req.body.username,
+            email: req.body.email,
+            password: passwordHash,
+            name: req.body.name,
             rules: 0,
         });
 
@@ -51,14 +58,14 @@ router.post('/create', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
        
-        if (!req.body.username) {
-            return handlerError(res, 400, 'username is require.');
+        if (!req.body.email) {
+            return handlerError(res, 400, 'email is require.');
         }
         if (!req.body.password) {
             return handlerError(res, 400, 'password is require.');
         }
 
-        let user = await UserModel.findOne({username: new RegExp('^'+req.body.username+'$', "i")});
+        let user = await UserModel.findOne({email: new RegExp('^'+req.body.email+'$', "i")});
         if (!user) {
             return handlerError(res, 400, 'user is not exists');
         }
