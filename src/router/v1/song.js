@@ -29,7 +29,7 @@ router.post('/create', async (req, res) => {
             return handlerError(res, 400, 'imagePath is require.');
         }
 
-        let track = await new SongModel({
+        let song = await new SongModel({
             title: req.body.title,
             artist: req.body.artist,
             genreId: req.body.genreId,
@@ -39,7 +39,7 @@ router.post('/create', async (req, res) => {
             imagePath: req.body.imagePath,
         });
 
-        track.save((err) => {
+        song.save((err) => {
             if (err) {
                 console.log(err);
             }
@@ -47,7 +47,7 @@ router.post('/create', async (req, res) => {
 
         res.status(200).json({
             message: 'Create track is successfully',
-            data: track
+            data: song
         });
 
     } catch(err) {

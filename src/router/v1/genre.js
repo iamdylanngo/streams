@@ -10,11 +10,11 @@ const handlerError = (res, httpCode, message) => res.status(httpCode).json({
 
 router.get('/get', async (req, res) => {
     try {
-        let types = await GenreModel.find({});
+        let genres = await GenreModel.find({});
         
         res.status(200).json({
             message: 'Get type is complete',
-            data: types
+            data: genres
         });
 
     } catch(err) {
@@ -27,19 +27,19 @@ router.get('/get', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
 
-        if (!req.body.name) {
-            return handlerError(res, 400, 'name is require.');
+        if (!req.body.title) {
+            return handlerError(res, 400, 'title is require.');
         }
         if (!req.body.order) {
             return handlerError(res, 400, 'order is require.');
         }
 
-        let type = await new GenreModel({
-            name: req.body.name,
+        let genre = await new GenreModel({
+            title: req.body.title,
             order: req.body.order,
         });
 
-        type.save((err) => {
+        genre.save((err) => {
             if (err) {
                 console.log(err);
             }
@@ -47,7 +47,7 @@ router.post('/create', async (req, res) => {
 
         res.status(200).json({
             message: 'Create type is complete',
-            data: type
+            data: genre
         });
 
     } catch (err) {

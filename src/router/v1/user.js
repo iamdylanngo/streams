@@ -70,7 +70,9 @@ router.post('/login', async (req, res) => {
             return handlerError(res, 400, 'user is not exists');
         }
 
-        if (user.password != req.body.password) {
+        const passwordHash = crypto.createHash('md5').update(req.body.password).digest("hex");
+
+        if (user.password != passwordHash) {
             return handlerError(res, 400, 'password incorrect');
         }
 
