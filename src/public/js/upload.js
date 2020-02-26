@@ -28,6 +28,11 @@ function updateGenre(res) {
 
 $('#btn_upload').click(() => {
 
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+        return alert('Please login');
+    }
+
     if ($('#filemusic')[0].files.length == 0) {
         return alert('MP3 file is require');
     }
@@ -126,3 +131,14 @@ function createSong(musicPath, imagePath) {
         }
     });
 }
+
+$(function() {
+    var user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    if (user) {
+        $('#login').css("display", "none");
+        $('#logged').css("display", "block");
+        $('#a_username').append(user.name);
+        $('#a_username').append('<span class="ms_pro_name">'+user.name[0]+'</span>');
+    }
+});

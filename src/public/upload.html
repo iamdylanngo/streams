@@ -35,13 +35,13 @@
             <!---Header--->
             <div class="ms_header" style="left: 0px;">
                 <div class="ms_top_right">
-                    <div class="ms_top_btn">
-                        <a href="javascript:;" class="ms_admin_name">Hello Bella <span class="ms_pro_name">ns</span>													
-						</a>
+                    <div class="ms_top_btn" id="login" style="display: block; width: 100px;">
+                        <a href="javascript:;" class="ms_btn login_btn" data-toggle="modal" data-target="#myModal1"><span>login</span></a>
+                    </div>
+                    <div class="ms_top_btn" id="logged" style="display: none;">
+                        <a href="javascript:;" class="ms_admin_name" id="a_username"></a>
 						<ul class="pro_dropdown_menu">
 							<li><a href="profile.html">Profile</a></li>
-							<li><a href="manage_acc.html" target="_blank">Pricing Plan</a></li>
-							<li><a href="blog.html" target="_blank">Blog</a></li>
 							<li><a href="#">Setting</a></li>
 							<li><a href="#">Logout</a></li>
 						</ul>
@@ -106,6 +106,51 @@
                <div class="ms_copyright">
                     <div class="footer_border"></div>
                     <p><a target="_blank" href="#">Jundat95</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="ms_register_popup">
+        <!----Login Popup Start---->
+        <div id="myModal1" class="modal  centered-modal" role="dialog">
+            <div class="modal-dialog login_dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal">
+						<i class="fa_icon form_close"></i>
+					</button>
+                    <div class="modal-body">
+                        <div class="ms_register_img">
+                            <img src="public/images/register_img.png" alt="" class="img-fluid" />
+                        </div>
+                        <div class="ms_register_form">
+                            <h2>login / Sign in</h2>
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter Your Email" class="form-control" id="inp_email_1">
+                                <span class="form_icon">
+							<i class="fa_icon form-envelope" aria-hidden="true"></i>
+						</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Enter Password" class="form-control" id="inp_password_1">
+                                <span class="form_icon">
+						<i class="fa_icon form-lock" aria-hidden="true"></i>
+						</span>
+                            </div>
+                            <div class="remember_checkbox">
+                                <label>Keep me signed in
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
+                            </div>
+                            <a href="#" class="ms_btn" id="btn_login_1">login now</a>
+                            <div class="popup_forgot">
+                                <a href="#">Forgot Password ?</a>
+                            </div>
+                            <p>Don't Have An Account? <a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">register here</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

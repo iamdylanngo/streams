@@ -10,11 +10,18 @@ $(function () {
             [
                 {
                     image: 'public/images/weekly/song1.jpg',
-                    title: "Duyên Trời Lấy 2",
-                    artist: "Chung Thanh Duy",
-                    mp3: "http://localhost:3001/api/v1/music/play/1582592731645-Duyen-Troi-Lay-2---Chung-Thanh-Duy-.mp3",
+                    title: "Anh Thanh Niên",
+                    artist: "HuyR",
+                    mp3: "http://10.10.16.92:3001/api/v1/music/play/1582712147365-Anh-Thanh-Nien---HuyR.mp3",
                     option: myPlayListOtion
-                }
+                },
+                {
+                    image: 'public/images/weekly/song1.jpg',
+                    title: "Do For Love",
+                    artist: "BRay",
+                    mp3: "http://10.10.16.92:3001/api/v1/music/play/1582712437278-DoForLove-AMeeBRay-6221980.mp3",
+                    option: myPlayListOtion
+                },
             ], {
             swfPath: "js/plugins",
             supplied: "oga, mp3",
