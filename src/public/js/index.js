@@ -96,6 +96,11 @@ $('#btn_login_1').click(() => {
 
 });
 
+$('#a_logout').click(() => {
+    localStorage.setItem("user", null);
+    window.location.href = '/';
+});
+
 $(function() {
         var user = JSON.parse(localStorage.getItem("user"));
         console.log(user);
