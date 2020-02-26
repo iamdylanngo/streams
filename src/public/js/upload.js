@@ -93,12 +93,12 @@ function uploadSongImage(musicPath) {
 }
 
 function createSong(musicPath, imagePath) {
-
+    var user = JSON.parse(localStorage.getItem("user"));
     var payload = {
         title: $('#inp_name').val(),
         artist: $('#inp_artist').val(),
         genreId: $('#select_genre').val(),
-        userId: '123456',
+        userId: user.id,
         musicPath: musicPath,
         imagePath: imagePath
     };
@@ -122,7 +122,7 @@ function createSong(musicPath, imagePath) {
             }
         },
         error: function (jqXhr, textStatus, errorThrown) {
-            console.log(jqXhr);
+            // console.log(jqXhr);
             if (jqXhr.status == 400) {
                 alert(jqXhr.responseJSON.message);
             } else {
@@ -134,7 +134,7 @@ function createSong(musicPath, imagePath) {
 
 $(function() {
     var user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    // console.log(user);
     if (user) {
         $('#login').css("display", "none");
         $('#logged').css("display", "block");

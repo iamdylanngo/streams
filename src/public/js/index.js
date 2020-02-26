@@ -101,13 +101,127 @@ $('#a_logout').click(() => {
     window.location.href = '/';
 });
 
-$(function() {
-        var user = JSON.parse(localStorage.getItem("user"));
-        console.log(user);
-        if (user) {
-            $('#login').css("display", "none");
-            $('#logged').css("display", "block");
-            $('#a_username').append(user.name);
-            $('#a_username').append('<span class="ms_pro_name">'+user.name[0]+'</span>');
-        }
+$(function () {
+    var user = JSON.parse(localStorage.getItem("user"));
+    // console.log(user);
+    if (user) {
+        $('#login').css("display", "none");
+        $('#logged').css("display", "block");
+        $('#a_username').append(user.name);
+        $('#a_username').append('<span class="ms_pro_name">' + user.name[0] + '</span>');
+    }
+
+    getAllSong();
 });
+
+var songs = null;
+
+function getAllSong() {
+    $.ajax({
+        url: '/api/v1/song/get',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data, textStatus, jQxhr) {
+            if (jQxhr.status == 200) {
+                console.log(data);
+                songs = data.data;
+                renderSong(data.data);
+            }
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(jqXhr);
+            if (jqXhr.status == 400) {
+                alert(jqXhr.responseJSON.message);
+            } else {
+                alert('Get song is fail, please try again');
+            }
+        }
+    });
+}
+
+function renderSong(res) {
+    for (var i = 0; i < res.length; i++) {
+
+        var ms_weekly_box = `
+        <div class="ms_weekly_box">
+        <div class="weekly_left">
+            <span class="w_top_no">
+                ${i}
+            </span>
+            <div class="w_top_song">
+                <div class="w_tp_song_img">
+                    <img src="public/images/weekly/song1.jpg" alt="" class="img-fluid">
+                    <div class="ms_song_overlay">
+                    </div>
+                    <div class="ms_play_icon">
+                        <img class="${res[i]._id}" src="public/images/svg/play.svg" alt="">
+                    </div>
+                </div>
+                <div class="w_tp_song_name">
+                    <h3>${res[i].title}</h3>
+                    <p>${res[i].artist}</p>
+                </div>
+            </div>
+        </div>
+        <div class="weekly_right">
+            <span class="w_song_time">5:10</span>
+            <span class="ms_more_icon" data-other="1">
+                <img src="public/images/svg/more.svg" alt="">
+            </span>
+        </div>
+        <ul class="more_option">
+            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add
+                    To Favourites</a></li>
+            <li><a href="#"><span class="opt_icon"><span
+                            class="icon icon_queue"></span></span>Add To Queue</a></li>
+            <li><a href="#"><span class="opt_icon"><span
+                            class="icon icon_dwn"></span></span>Download Now</a></li>
+            <li><a href="#"><span class="opt_icon"><span
+                            class="icon icon_playlst"></span></span>Add To Playlist</a></li>
+            <li><a href="#"><span class="opt_icon"><span
+                            class="icon icon_share"></span></span>Share</a></li>
+        </ul>
+        </div>`;
+    
+        var ms_divider = `<div class="ms_divider"></div>`;
+
+        $("#top_music").append(ms_weekly_box);
+        $("#top_music").append(ms_divider);
+    }
+
+    $('.ms_play_icon').on('click', event => {
+        const clickedElement = $(event.target);
+        // console.log(clickedElement);
+        // console.log(clickedElement.attr('class'));
+
+        var myPlayListOtion = '<ul class="more_option"><li><a href="#"><span class="opt_icon" title="Add To Favourites"><span class="icon icon_fav"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Queue"><span class="icon icon_queue"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Download Now"><span class="icon icon_dwn"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Playlist"><span class="icon icon_playlst"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Share"><span class="icon icon_share"></span></span></a></li></ul>';
+
+        var songId = clickedElement.attr('class');
+        var song = findSongById(songId);
+        
+        var songPlay = {
+            image: 'public/images/weekly/song1.jpg',
+            title: song.title,
+            artist: song.artist,
+            mp3: song.musicPath,
+            option: myPlayListOtion
+        };
+        console.log(songPlay);
+        console.log(myPlaylist);
+        myPlaylist.add(songPlay);
+        
+    });
+
+
+}
+
+function findSongById(songId) {
+    console.log(songId);
+    for (var i = 0; i < songs.length; i++) {
+        if (songs[i]._id == songId) {
+            return songs[i];
+        }
+    }
+    return null;
+}

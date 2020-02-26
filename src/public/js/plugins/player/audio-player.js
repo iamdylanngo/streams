@@ -1,39 +1,28 @@
+var myPlaylist = null;
 $(function () {
     "use strict";
     if ($('.audio-player').length) {
         var myPlayListOtion = '<ul class="more_option"><li><a href="#"><span class="opt_icon" title="Add To Favourites"><span class="icon icon_fav"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Queue"><span class="icon icon_queue"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Download Now"><span class="icon icon_dwn"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Playlist"><span class="icon icon_playlst"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Share"><span class="icon icon_share"></span></span></a></li></ul>';
 
-        var myPlaylist = new jPlayerPlaylist({
+        myPlaylist = new jPlayerPlaylist({
             jPlayer: "#jquery_jplayer_1",
             cssSelectorAncestor: "#jp_container_1"
         },
             [
-                {
-                    image: 'public/images/weekly/song1.jpg',
-                    title: "Anh Thanh Niên",
-                    artist: "HuyR",
-                    mp3: "http://10.10.16.92:3001/api/v1/music/play/1582712147365-Anh-Thanh-Nien---HuyR.mp3",
-                    option: myPlayListOtion
-                },
-                {
-                    image: 'public/images/weekly/song1.jpg',
-                    title: "Do For Love",
-                    artist: "BRay",
-                    mp3: "http://10.10.16.92:3001/api/v1/music/play/1582712437278-DoForLove-AMeeBRay-6221980.mp3",
-                    option: myPlayListOtion
-                },
-            ], {
-            swfPath: "js/plugins",
-            supplied: "oga, mp3",
-            wmode: "window",
-            useStateClassSkin: true,
-            autoBlur: false,
-            smoothPlayBar: true,
-            keyEnabled: true,
-            playlistOptions: {
-                autoPlay: false
-            }
-        });
+            ],
+            {
+                swfPath: "js/plugins",
+                supplied: "oga, mp3",
+                wmode: "window",
+                useStateClassSkin: true,
+                autoBlur: false,
+                smoothPlayBar: true,
+                keyEnabled: true,
+                playlistOptions: {
+                    autoPlay: false
+                }
+            });
+
         $("#jquery_jplayer_1").on($.jPlayer.event.ready + ' ' + $.jPlayer.event.play, function (event) {
             var current = myPlaylist.current;
             var playlist = myPlaylist.playlist;
@@ -62,7 +51,6 @@ $(function () {
                 $(window).unbind("mousemove");
             });
 
-
             function getRotationDegrees(obj) {
                 var matrix = obj.css("-webkit-transform") ||
                     obj.css("-moz-transform") ||
@@ -77,10 +65,6 @@ $(function () {
                 } else { var angle = 0; }
                 return (angle < 0) ? angle + 360 : angle;
             }
-
-
-
-
 
             var timeDrag = false;
             $('.jp-play-bar').mousedown(function (e) {

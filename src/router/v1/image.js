@@ -8,7 +8,7 @@ var storage = multer.diskStorage({
         cb(null, 'upload/song/imgs');
     },
     filename: function (req, file, callback) {
-        let math = ["image/x-png","image/gif","image/jpeg"];
+        let math = ["image/x-png","image/png","image/gif","image/jpeg"];
         if (math.indexOf(file.mimetype) === -1) {
             let errorMess = `The file <strong>${file.originalname}</strong> is invalid. Only allowed to upload image.`;
             return callback(errorMess, null);
@@ -28,8 +28,8 @@ var upload = multer({
 router.post('/upload', async (req, res) => {
     upload(req, res, (err) => {
         if (err) {
-            res.status(500).json({
-                message: 'upload is fail'
+            return res.status(500).json({
+                message: err
             });
         }
 

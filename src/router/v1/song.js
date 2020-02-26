@@ -57,4 +57,39 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/get', async (req, res) => {
+    try {
+        let songs = await SongModel.find({});
+        if (songs) {
+            const host = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT + '/api/v1/music/play/';
+            songs = songs.map(item => {
+                return {
+                    _id: item._id,
+                    title: item.title,
+                    artist: item.artist,
+                    genreId: item.genreId,
+                    userId: item.userId,
+                    imagePath: item.imagePath,
+                    musicPath: host + item.musicPath
+                };
+            });
+            res.status(200).json({
+                message: 'get songs is successfully',
+                data: songs
+            });
+        } else {
+            res.status(500).json({
+                message: 'get songs is fail',
+                data: {}
+            });
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({
+            message: err,
+            data: {}
+        });
+    }
+});
+
 export default router;
