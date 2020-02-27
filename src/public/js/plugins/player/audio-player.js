@@ -19,7 +19,7 @@ $(function () {
                 smoothPlayBar: true,
                 keyEnabled: true,
                 playlistOptions: {
-                    autoPlay: false
+                    autoPlay: true,
                 }
             });
 

@@ -147,7 +147,7 @@ function renderSong(res) {
         <div class="ms_weekly_box">
         <div class="weekly_left">
             <span class="w_top_no">
-                ${i}
+                ${renderOrder(i+1)}
             </span>
             <div class="w_top_song">
                 <div class="w_tp_song_img">
@@ -207,13 +207,22 @@ function renderSong(res) {
             mp3: song.musicPath,
             option: myPlayListOtion
         };
-        console.log(songPlay);
-        console.log(myPlaylist);
+        // console.log(songPlay);
+        // console.log(myPlaylist);
         myPlaylist.add(songPlay);
+        myPlaylist.play();
         
     });
 
 
+}
+
+function renderOrder(i) {
+    if (i / 10 < 1) {
+        return '0'+i;
+    } else {
+        return i;
+    }
 }
 
 function findSongById(songId) {
