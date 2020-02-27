@@ -28,7 +28,7 @@ $(function () {
             var playlist = myPlaylist.playlist;
             $.each(playlist, function (index, obj) {
                 if (index == current) {
-                    $(".jp-now-playing").html("<div class='jp-track-name'><span class='que_img'><img src='" + obj.image + "'></span><div class='que_data'>" + obj.title + " <div class='jp-artist-name'>" + obj.artist + "</div></div></div>");
+                    $(".jp-now-playing").html("<div class='jp-track-name'><span class='que_img'><img style='width: 50px;' src='" + obj.image + "'></span><div class='que_data'>" + obj.title + " <div class='jp-artist-name'>" + obj.artist + "</div></div></div>");
                 }
             });
             $('.knob-wrapper').mousedown(function () {

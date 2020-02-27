@@ -201,7 +201,7 @@ function renderSong(res) {
         var song = findSongById(songId);
         
         var songPlay = {
-            image: 'public/images/weekly/song1.jpg',
+            image: song.imagePath,
             title: song.title,
             artist: song.artist,
             mp3: song.musicPath,
