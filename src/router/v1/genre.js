@@ -35,8 +35,8 @@ router.post('/create', async (req, res) => {
         }
 
         let genre = await new GenreModel({
-            title: req.body.title,
-            order: req.body.order,
+            title: req.body.title.trim(),
+            order: req.body.order.trim(),
         });
 
         genre.save((err) => {

@@ -151,7 +151,7 @@ function renderSong(res) {
             </span>
             <div class="w_top_song">
                 <div class="w_tp_song_img">
-                    <img src="public/images/weekly/song1.jpg" alt="" class="img-fluid">
+                    <img src="${res[i].imagePath}" alt="" class="img-fluid">
                     <div class="ms_song_overlay">
                     </div>
                     <div class="ms_play_icon">

@@ -69,6 +69,10 @@ $('#btn_upload').click(() => {
 
 });
 
+$('#btn_cancle').click(() => {
+    window.location.href = '/';
+});
+
 function uploadSongImage(musicPath) {
     var fd = new FormData();
     var files = $('#fileimage')[0].files[0];
@@ -141,4 +145,58 @@ $(function() {
         $('#a_username').append(user.name);
         $('#a_username').append('<span class="ms_pro_name">'+user.name[0]+'</span>');
     }
+});
+
+$('#btn_login_1').click(() => {
+
+    if ($('#inp_email_1').val().length == 0) {
+        return alert('Email is require');
+    }
+    if ($('#inp_password_1').val().length == 0) {
+        return alert('Password is require');
+    }
+
+    var payload = {
+        email: $('#inp_email_1').val(),
+        password: $('#inp_password_1').val(),
+    };
+
+    $.ajax({
+        url: '/api/v1/user/login',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function (data, textStatus, jQxhr) {
+            if (jQxhr.status == 200) {
+                // console.log(data);
+                // alert('Login is complete.');
+                var user = JSON.stringify({
+                    name: data.data.name,
+                    rules: data.data.rules,
+                    id: data.data._id,
+                });
+                localStorage.setItem("user", user);
+
+                // var cache = JSON.parse(localStorage.getItem("user"));
+                // console.log(cache);
+
+                window.location.href = '/';
+            }
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(jqXhr);
+            if (jqXhr.status == 400) {
+                alert(jqXhr.responseJSON.message);
+            } else {
+                alert('Login is fail, Please try again');
+            }
+        }
+    });
+
+});
+
+$('#a_logout').click(() => {
+    localStorage.setItem("user", null);
+    window.location.href = '/';
 });

@@ -36,3 +36,7 @@ $('#btn_create').click(() => {
     });
 
 });
+
+$('#btn_cancle').click(() => {
+    window.location.href = '/';
+});

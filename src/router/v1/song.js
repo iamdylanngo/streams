@@ -30,8 +30,8 @@ router.post('/create', async (req, res) => {
         }
 
         let song = await new SongModel({
-            title: req.body.title,
-            artist: req.body.artist,
+            title: req.body.title.trim(),
+            artist: req.body.artist.trim(),
             genreId: req.body.genreId,
             userId: req.body.userId,
             length: req.body.length,
@@ -61,7 +61,7 @@ router.get('/get', async (req, res) => {
     try {
         let songs = await SongModel.find({});
         if (songs) {
-            const host = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT + '/api/v1/music/play/';
+            const host = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT;
             songs = songs.map(item => {
                 return {
                     _id: item._id,
@@ -69,8 +69,8 @@ router.get('/get', async (req, res) => {
                     artist: item.artist,
                     genreId: item.genreId,
                     userId: item.userId,
-                    imagePath: item.imagePath,
-                    musicPath: host + item.musicPath
+                    imagePath: host + '/image/resizes/'+ item.imagePath,
+                    musicPath: host + '/api/v1/music/play/' + item.musicPath,
                 };
             });
             res.status(200).json({
