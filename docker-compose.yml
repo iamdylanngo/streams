@@ -10,7 +10,7 @@ services:
     working_dir: /usr/src/service
     command: npm run start
     ports:
-      - 80:3002
+      - 80:80
   mongo:
     image: mongo
     restart: always
