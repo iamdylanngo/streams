@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export const connectMongoDB = () => {
     mongoose.connect(
-        `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PWD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
+        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true

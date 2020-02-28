@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    image: node:12
+    volumes:
+      - nodemodules:/usr/src/service/node_modules
+      - .:/usr/src/service
+    environment:
+      - NODE_ENV=development
+    working_dir: /usr/src/service
+    command: npm run start
+    ports:
+      - 80:3002
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017
+    env_file:
+      - .env
+
+volumes:
+  nodemodules:
+    external: true

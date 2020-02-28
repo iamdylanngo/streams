@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node src/index.js",
     "watch": "nodemon --exec babel-node src/index.js",
-    "up":"pm2 start src/index.js --interpreter ./node_modules/.bin/babel-node"
+    "up": "pm2 start src/index.js --interpreter ./node_modules/.bin/babel-node"
   },
   "author": "Dylan.Ngo",
   "license": "ISC",
