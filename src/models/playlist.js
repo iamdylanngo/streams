@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const PlaylistSchema = new Schema({
     title: String,
     userId: String,
-    songs: [String],
+    songId: [String],
     imagePath: String 
 }, 
 {
@@ -18,4 +18,4 @@ const PlaylistSchema = new Schema({
 
 PlaylistSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('genres', PlaylistSchema);
+export default mongoose.model('playlists', PlaylistSchema);
