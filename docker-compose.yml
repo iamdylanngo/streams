@@ -8,7 +8,9 @@ services:
     environment:
       - NODE_ENV=development
     working_dir: /usr/src/service
-    command: npm run start
+    command: >
+      sh -c "npm i &&
+             npm run start"
     ports:
       - 80:80
   mongo:
