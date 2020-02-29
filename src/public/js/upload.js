@@ -121,6 +121,8 @@ function createSong(musicPath, imagePath) {
                 alert('Create song is successfully');
                 $('#inp_name').val('');
                 $('#inp_artist').val('');
+                $('#select_genre').val('');
+                $('#select_permission').val('');
                 $('#filemusic').val('');
                 $('#fileimage').val('');
             }

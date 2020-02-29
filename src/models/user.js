@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     password: String,
     name: String,
     rules: { type: Number, default: 0 },
+    imagePath: String,
 }, 
 {
     timestamps: {

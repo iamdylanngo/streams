@@ -9,7 +9,7 @@ const router = new Router();
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'upload/song/imgs');
+        cb(null, 'upload/img');
     },
     filename: function (req, file, callback) {
         let math = ["image/x-png", "image/png", "image/gif", "image/jpeg"];
@@ -44,7 +44,7 @@ router.post('/upload', async (req, res) => {
             .toFormat("jpeg")
             .jpeg({ quality: 50 })
             .toFile(
-                path.resolve(req.file.destination, 'resizes', image)
+                path.resolve(req.file.destination, 'music', image)
             );
 
         fs.unlinkSync(req.file.path);

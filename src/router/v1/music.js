@@ -26,7 +26,7 @@ router.get('/play/:track', async (req, res) => {
     try {
 
         let track = req.params.track;
-        let music = 'upload/song/musics/' + track;
+        let music = 'upload/music/' + track;
         let stat = fs.statSync(music);
         let range = req.headers.range;
         let readStream;
@@ -70,7 +70,7 @@ router.get('/play/:track', async (req, res) => {
 
 let diskStorage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, "upload/song/musics");
+        callback(null, "upload/music");
     },
     filename: (req, file, callback) => {
         let math = ["audio/mpeg3", "audio/x-mpeg-3", "audio/mp3"];

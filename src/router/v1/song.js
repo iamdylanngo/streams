@@ -69,7 +69,7 @@ router.get('/get', async (req, res) => {
                     artist: item.artist,
                     genreId: item.genreId,
                     userId: item.userId,
-                    imagePath: host + '/image/resizes/'+ item.imagePath,
+                    imagePath: host + '/image/music/'+ item.imagePath,
                     musicPath: host + '/api/v1/music/play/' + item.musicPath,
                 };
             });

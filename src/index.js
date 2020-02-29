@@ -38,7 +38,7 @@ app.get('/genre', function (req, res) {
 });
 
 app.use('/public', express.static('src/public'));
-app.use('/image', express.static('upload/song/imgs'));
+app.use('/image', express.static('upload/img'));
 
 app.use('/api/v1/music', Music);
 app.use('/api/v1/user', User);

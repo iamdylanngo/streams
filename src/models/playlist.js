@@ -3,14 +3,11 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const Schema = mongoose.Schema;
 
-const SongSchema = new Schema({
+const PlaylistSchema = new Schema({
     title: String,
-    artist: String,
-    genreId: [String],
     userId: String,
-    length: String,
-    musicPath: String,
-    imagePath: String,
+    songs: [String],
+    imagePath: String 
 }, 
 {
     timestamps: {
@@ -19,6 +16,6 @@ const SongSchema = new Schema({
     }
 });
 
-SongSchema.plugin(mongoosePaginate);
+PlaylistSchema.plugin(mongoosePaginate);
 
-export default mongoose.model('songs', SongSchema);
+export default mongoose.model('genres', PlaylistSchema);

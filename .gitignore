@@ -1,7 +1,6 @@
 /node_modules/**/**
 /node_modules
 /upload
-/upload/**/**
-!/upload/song/imgs/resizes/readme.md
-!/upload/song/musics/readme.md
+!/upload/img/music/readme.md
+!/upload/music/readme.md
 .env

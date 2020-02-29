@@ -6615,3 +6615,7 @@ h2.widget-title:after {
 		flex-basis: 190px;
 	}
 }
+
+.form-group .select-genre {
+	height: 80px;
+}
