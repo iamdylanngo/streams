@@ -149,7 +149,7 @@ function renderSong(res) {
         <div class="ms_weekly_box">
         <div class="weekly_left">
             <span class="w_top_no">
-                ${renderOrder(i+1)}
+                ${renderOrder(i + 1)}
             </span>
             <div class="w_top_song">
                 <div class="w_tp_song_img">
@@ -185,7 +185,7 @@ function renderSong(res) {
                             class="icon icon_share"></span></span>Share</a></li>
         </ul>
         </div>`;
-    
+
         var ms_divider = `<div class="ms_divider"></div>`;
 
         $("#top_music").append(ms_weekly_box);
@@ -201,7 +201,7 @@ function renderSong(res) {
 
         var songId = clickedElement.attr('class');
         var song = findSongById(songId);
-        
+
         var songPlay = {
             image: song.imagePath,
             title: song.title,
@@ -209,26 +209,28 @@ function renderSong(res) {
             mp3: song.musicPath,
             option: myPlayListOtion
         };
-        // console.log(songPlay);
-        // console.log(myPlaylist);
         myPlaylist.add(songPlay);
-        myPlaylist.play();
-        
+        myPlaylist.play(myPlaylist.playlist.length - 1);
     });
 
+    $('#a_clear_all').click(() => {
+        myPlaylist.pause();
+        myPlaylist.remove();
+        $(".jp-now-playing").html("<div class='jp-track-name'><span class='que_img'><img style='width: 50px;' src='public/images/logo.png'></span><div class='que_data'><div class='jp-artist-name'></div></div></div>");
+    });
 
 }
 
 function renderOrder(i) {
     if (i / 10 < 1) {
-        return '0'+i;
+        return '0' + i;
     } else {
         return i;
     }
 }
 
 function findSongById(songId) {
-    console.log(songId);
+    // console.log(songId);
     for (var i = 0; i < songs.length; i++) {
         if (songs[i]._id == songId) {
             return songs[i];
