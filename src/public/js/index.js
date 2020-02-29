@@ -190,6 +190,22 @@ function renderSong(res) {
 
         $("#top_music").append(ms_weekly_box);
         $("#top_music").append(ms_divider);
+
+        $(".ms_more_icon").on('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if (typeof $(this).attr('data-other') != 'undefined') {
+                var target = $(this).parent().parent();
+            } else {
+                var target = $(this).parent();
+            }
+            if (target.find("ul.more_option").hasClass('open_option')) {
+                target.find("ul.more_option").removeClass('open_option');
+            } else {
+                $("ul.more_option.open_option").removeClass('open_option');
+                target.find("ul.more_option").addClass('open_option');
+            }
+        });
     }
 
     $('.ms_play_icon').on('click', event => {
