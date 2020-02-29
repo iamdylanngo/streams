@@ -937,6 +937,10 @@ ul.ms_lang_box:after {
 .w_top_song .w_tp_song_name h3 {
 	font-size: 16px;
 	margin-bottom: 5px;
+	overflow: hidden;
+    white-space: nowrap;
+    width: 250px;
+    text-overflow: ellipsis;
 }
 .ms_rcnt_box_text h3 a,
 .w_top_song .w_tp_song_name h3 a {
@@ -947,6 +951,10 @@ ul.ms_lang_box:after {
 	color: #dedede;
 	font-size: 14px;
 	margin: 0px;
+	overflow: hidden;
+    white-space: nowrap;
+    width: 250px;
+    text-overflow: ellipsis;
 }
 .ms_rcnt_box_text h3 a:hover,
 .w_top_song .w_tp_song_name h3 a:hover {
@@ -1888,6 +1896,9 @@ h1.footer_title:after {
 	width: calc(100% - 50px);
 	padding-left: 15px;
 	float: left;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .play_song_name h3 {
 	font-size: 16px;
@@ -2390,10 +2401,13 @@ i.ms_icon.icon_share {
 	border-radius: 5px;
 }
 .jp-playlist .que_data {
-	width: calc(100% - 50px);
+	width: calc(100% - 65px);
 	float: left;
 	padding-left: 20px;
 	line-height: 30px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .jp-playlist li.jp-playlist-current {
 	background-color: #252b4d;
