@@ -17,7 +17,7 @@ $('#btn_register').click(() => {
     }
 
     var email = $('#inp_email').val();
-    var name = $('#inp_name').val();
+    var name = $('#inp_register_name').val();
     var password = $('#inp_password').val();
 
     var payload = {
@@ -173,15 +173,15 @@ function renderSong(res) {
             </span>
         </div>
         <ul class="more_option">
-            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add
+            <li><a href="javascript:;" class="${res[i]._id}"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add
                     To Favourites</a></li>
-            <li><a href="#"><span class="opt_icon"><span
+            <li><a href="javascript:;" class="a_add_queue ${res[i]._id}"><span class="opt_icon"><span
                             class="icon icon_queue"></span></span>Add To Queue</a></li>
-            <li><a href="#"><span class="opt_icon"><span
+            <li><a href="javascript:;" class="${res[i]._id}"><span class="opt_icon"><span
                             class="icon icon_dwn"></span></span>Download Now</a></li>
-            <li><a href="#"><span class="opt_icon"><span
+            <li><a href="javascript:;" class="${res[i]._id}"><span class="opt_icon"><span
                             class="icon icon_playlst"></span></span>Add To Playlist</a></li>
-            <li><a href="#"><span class="opt_icon"><span
+            <li><a href="javascript:;" class="${res[i]._id}"><span class="opt_icon"><span
                             class="icon icon_share"></span></span>Share</a></li>
         </ul>
         </div>`;
@@ -212,19 +212,9 @@ function renderSong(res) {
         const clickedElement = $(event.target);
         // console.log(clickedElement);
         // console.log(clickedElement.attr('class'));
-
-        var myPlayListOtion = '<ul class="more_option"><li><a href="#"><span class="opt_icon" title="Add To Favourites"><span class="icon icon_fav"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Queue"><span class="icon icon_queue"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Download Now"><span class="icon icon_dwn"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Playlist"><span class="icon icon_playlst"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Share"><span class="icon icon_share"></span></span></a></li></ul>';
-
         var songId = clickedElement.attr('class');
-        var song = findSongById(songId);
+        var songPlay = addSong(songId);
 
-        var songPlay = {
-            image: song.imagePath,
-            title: song.title,
-            artist: song.artist,
-            mp3: song.musicPath,
-            option: myPlayListOtion
-        };
         myPlaylist.add(songPlay);
         myPlaylist.play(myPlaylist.playlist.length - 1);
     });
@@ -235,6 +225,17 @@ function renderSong(res) {
         $(".jp-now-playing").html("<div class='jp-track-name'><span class='que_img'><img style='width: 50px;' src='public/images/logo.png'></span><div class='que_data'><div class='jp-artist-name'></div></div></div>");
     });
 
+    $('.a_add_queue').on('click', event => {
+        const clickedElement = $(event.target);
+        var classTemp = clickedElement.attr('class');
+        // console.log(clickedElement);
+        // console.log(classTemp.split(' '));
+        var songIds = classTemp.split(' ');
+        if (songIds.length > 1) {
+            var songPlay = addSong(songIds[1]);
+            myPlaylist.add(songPlay);
+        }
+    });
 }
 
 function renderOrder(i) {
@@ -243,6 +244,20 @@ function renderOrder(i) {
     } else {
         return i;
     }
+}
+
+function addSong(songId) {
+    var myPlayListOtion = '<ul class="more_option"><li><a href="#"><span class="opt_icon" title="Add To Favourites"><span class="icon icon_fav"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Queue"><span class="icon icon_queue"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Download Now"><span class="icon icon_dwn"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Add To Playlist"><span class="icon icon_playlst"></span></span></a></li><li><a href="#"><span class="opt_icon" title="Share"><span class="icon icon_share"></span></span></a></li></ul>';
+    var song = findSongById(songId);
+    var songPlay = {
+        image: song.imagePath,
+        title: song.title,
+        artist: song.artist,
+        mp3: song.musicPath,
+        option: myPlayListOtion
+    };
+
+    return songPlay;
 }
 
 function findSongById(songId) {
