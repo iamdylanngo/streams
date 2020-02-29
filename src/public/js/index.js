@@ -143,8 +143,47 @@ function getAllSong() {
 }
 
 function renderSong(res) {
-    for (var i = 0; i < res.length; i++) {
+    var count = res.length;
+    if (count > 30 && count <= 60) {
+        rederLayoutSong(res, 29, 59, 60);
+    } else if (count > 15 && count <= 30) {
+        rederLayoutSong(res, 9, 19, 30);
+    } else if (count <= 15) {
+        rederLayoutSong(res, 4, 9, 15);
+    }
 
+    $('.ms_play_icon').on('click', event => {
+        const clickedElement = $(event.target);
+        // console.log(clickedElement);
+        // console.log(clickedElement.attr('class'));
+        var songId = clickedElement.attr('class');
+        var songPlay = addSong(songId);
+
+        myPlaylist.add(songPlay);
+        myPlaylist.play(myPlaylist.playlist.length - 1);
+    });
+
+    $('#a_clear_all').click(() => {
+        myPlaylist.pause();
+        myPlaylist.remove();
+        $(".jp-now-playing").html("<div class='jp-track-name'><span class='que_img'><img style='width: 50px;' src='public/images/logo.png'></span><div class='que_data'><div class='jp-artist-name'></div></div></div>");
+    });
+
+    $('.a_add_queue').on('click', event => {
+        const clickedElement = $(event.target);
+        var classTemp = clickedElement.attr('class');
+        // console.log(clickedElement);
+        // console.log(classTemp.split(' '));
+        var songIds = classTemp.split(' ');
+        if (songIds.length > 1) {
+            var songPlay = addSong(songIds[1]);
+            myPlaylist.add(songPlay);
+        }
+    });
+}
+
+function rederLayoutSong(res, a, b, c) {
+    for (var i = 0; i < res.length; i++) {
         var ms_weekly_box = `
         <div class="ms_weekly_box">
         <div class="weekly_left">
@@ -188,52 +227,38 @@ function renderSong(res) {
 
         var ms_divider = `<div class="ms_divider"></div>`;
 
-        $("#top_music").append(ms_weekly_box);
-        $("#top_music").append(ms_divider);
-
-        $(".ms_more_icon").on('click', function (e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            if (typeof $(this).attr('data-other') != 'undefined') {
-                var target = $(this).parent().parent();
-            } else {
-                var target = $(this).parent();
-            }
-            if (target.find("ul.more_option").hasClass('open_option')) {
-                target.find("ul.more_option").removeClass('open_option');
-            } else {
-                $("ul.more_option.open_option").removeClass('open_option');
-                target.find("ul.more_option").addClass('open_option');
-            }
-        });
+        if (i <= a) {
+            $("#top_music1").append(ms_weekly_box);
+            $("#top_music1").append(ms_divider);
+        }
+        if (i > a && i <= b) {
+            $("#top_music2").append(ms_weekly_box);
+            $("#top_music2").append(ms_divider);
+        }
+        if (i > b && i <= c) {
+            $("#top_music3").append(ms_weekly_box);
+            $("#top_music3").append(ms_divider);
+        }
+        if (i > c) {
+            $("#top_music3").append(ms_weekly_box);
+            $("#top_music3").append(ms_divider);
+        }
     }
 
-    $('.ms_play_icon').on('click', event => {
-        const clickedElement = $(event.target);
-        // console.log(clickedElement);
-        // console.log(clickedElement.attr('class'));
-        var songId = clickedElement.attr('class');
-        var songPlay = addSong(songId);
-
-        myPlaylist.add(songPlay);
-        myPlaylist.play(myPlaylist.playlist.length - 1);
-    });
-
-    $('#a_clear_all').click(() => {
-        myPlaylist.pause();
-        myPlaylist.remove();
-        $(".jp-now-playing").html("<div class='jp-track-name'><span class='que_img'><img style='width: 50px;' src='public/images/logo.png'></span><div class='que_data'><div class='jp-artist-name'></div></div></div>");
-    });
-
-    $('.a_add_queue').on('click', event => {
-        const clickedElement = $(event.target);
-        var classTemp = clickedElement.attr('class');
-        // console.log(clickedElement);
-        // console.log(classTemp.split(' '));
-        var songIds = classTemp.split(' ');
-        if (songIds.length > 1) {
-            var songPlay = addSong(songIds[1]);
-            myPlaylist.add(songPlay);
+    // listen option
+    $(".ms_more_icon").on('click', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (typeof $(this).attr('data-other') != 'undefined') {
+            var target = $(this).parent().parent();
+        } else {
+            var target = $(this).parent();
+        }
+        if (target.find("ul.more_option").hasClass('open_option')) {
+            target.find("ul.more_option").removeClass('open_option');
+        } else {
+            $("ul.more_option.open_option").removeClass('open_option');
+            target.find("ul.more_option").addClass('open_option');
         }
     });
 }
