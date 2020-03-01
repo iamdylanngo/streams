@@ -69,19 +69,21 @@ $('#btn_login_1').click(() => {
         data: JSON.stringify(payload),
         success: function (data, textStatus, jQxhr) {
             if (jQxhr.status == 200) {
-                // console.log(data);
+                console.log(data);
                 // alert('Login is complete.');
                 var user = JSON.stringify({
                     name: data.data.name,
                     rules: data.data.rules,
+                    email: data.data.email,
                     id: data.data._id,
+                    imagePath: data.data.imagePath,
                 });
                 localStorage.setItem("user", user);
 
                 // var cache = JSON.parse(localStorage.getItem("user"));
                 // console.log(cache);
 
-                window.location.href = '/';
+                // window.location.href = '/';
             }
         },
         error: function (jqXhr, textStatus, errorThrown) {

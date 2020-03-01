@@ -29,6 +29,10 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/profile', function (req, res) {
+    res.sendFile(__dirname + '/public/profile.html');
+});
+
 app.get('/upload', function (req, res) {
     res.sendFile(__dirname + '/public/upload.html');
 });
