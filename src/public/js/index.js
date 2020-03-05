@@ -83,7 +83,7 @@ $('#btn_login_1').click(() => {
                 // var cache = JSON.parse(localStorage.getItem("user"));
                 // console.log(cache);
 
-                // window.location.href = '/';
+                window.location.href = '/';
             }
         },
         error: function (jqXhr, textStatus, errorThrown) {
@@ -146,7 +146,9 @@ function getAllSong() {
 
 function renderSong(res) {
     var count = res.length;
-    if (count > 30 && count <= 60) {
+    if (count > 60) {
+        rederLayoutSong(res, 29, 59, 60);
+    } else if (count > 30 && count <= 60) {
         rederLayoutSong(res, 29, 59, 60);
     } else if (count > 15 && count <= 30) {
         rederLayoutSong(res, 9, 19, 30);

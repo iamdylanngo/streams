@@ -83,7 +83,9 @@ router.post('/login', async (req, res) => {
 
         const host = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT;
         user.password = '';
-        user.imagePath = host + '/image/user/' + user.imagePath;
+        if (user.imagePath) {
+            user.imagePath = host + '/image/user/' + user.imagePath;
+        }
         return res.status(200).json({
             message: "login successfully",
             data: user
@@ -120,7 +122,7 @@ var upload = multer({
 }).single('file');
 
 router.post('/upload/:id', async (req, res) => {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     upload(req, res, async (err) => {
         if (err) {
             return res.status(500).json({
