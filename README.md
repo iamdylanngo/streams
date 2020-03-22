@@ -1,26 +1,23 @@
 # Setup project in localworksation
 
-## Mongodb 
+# Config env
 
-docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=123456 -p 27017:27017 mongo
+## Windows 
+ 
+ ```bash
+  ipconfig
+  ```
 
-## Streams
-
-### Goto workspace
-### Run commnad 
+## Macs OSX and Linux
 
 ```bash
-npm i
+  ifconfig
+```
 
-change name file: .env.example to .env
+ change IP in .env file
 
-npm run start
-````
+# Start Music Service
 
-Change SERVER_HOST to your IP
-
-## Goto 
-
-http://IP:3001
-
-http://IP:3001/upload
+```bash
+docker-compose up -d
+```
