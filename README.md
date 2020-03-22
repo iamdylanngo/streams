@@ -14,10 +14,20 @@
   ifconfig
 ```
 
+## Change file name: .env.example to .env
+
+```bash
+cp .env.example .env
+```
+
  change IP in .env file
 
 # Start Music Service
 
 ```bash
+
+docker volume create --name=nodemodules
+
 docker-compose up -d
+
 ```
