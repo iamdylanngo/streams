@@ -31,3 +31,10 @@ docker volume create --name=nodemodules
 docker-compose up -d
 
 ```
+
+# Create folder storage music, images
+
+```bash
+mkdir -p upload/music
+mkdir -p upload/image/music
+```
