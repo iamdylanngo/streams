@@ -73,7 +73,29 @@
                 </div>
             </div>
             <!-- Todo -->
-            <div clas="song"><%= song._id %></div>
+            <p style="margin-top: 20px;" class="song_name"><%= song.title %> - <span class=""><a title="<%= song.artist %>" class="" href="#"><%= song.artist %></a></span></p>
+            <ul style="list-style: none;">
+                <li>
+                    <p class="">
+                        <span class="">
+                           Genre:
+                        </span>
+                        <span class="">
+                            <a title="" href="#">Nhạc Trẻ<a>                        
+                        </span>
+                    </p>
+                </li>
+                <li>
+                    <p class="">
+                        <span class="">
+                           Author:
+                        </span>
+                        <span class="">
+                            <a title="" href="#">Anonynous<a>                        
+                        </span>
+                    </p>
+                </li>
+            </ul>
             <!-- End Todo -->
         </div>
         <!----Footer Start---->
@@ -553,6 +575,7 @@
     <script type="text/javascript" src="<%= url %>/public/js/song.js"></script>
     <script>
         getSong('<%= song._id %>');
+        window.url = "<%= url %>";
     </script> 
 </body>
 

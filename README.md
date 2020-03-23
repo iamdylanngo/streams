@@ -36,7 +36,7 @@ docker-compose up -d
 
 ```bash
 mkdir -p upload/music
-mkdir -p upload/image/music
+mkdir -p upload/img/music
 ```
 
 Key bản 8 : .key=eNFaXCjyURVoCCGiHp7HTQ3hDhE/AfL0g8VE1fRbL84=

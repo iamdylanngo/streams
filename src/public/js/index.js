@@ -204,7 +204,7 @@ function rederLayoutSong(res, a, b, c) {
                     </div>
                 </div>
                 <div class="w_tp_song_name">
-                    <h3>${res[i].title}</h3>
+                    <h3><a href="${window.url}/song${res[i].musicPath.split('play')[1]}">${res[i].title}</a></h3>
                     <p>${res[i].artist}</p>
                 </div>
             </div>
