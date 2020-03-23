@@ -7,7 +7,7 @@ function getSong(id) {
         success: function (data, textStatus, jQxhr) {
             if (jQxhr.status == 200) {
                 console.log(data);
-
+                updateImgSong(data.data.imagePath);
                 const songPlay = addSong(data.data);
                 myPlaylist.add(songPlay);
                 setTimeout(function() {
@@ -36,5 +36,9 @@ function getSong(id) {
         };
     
         return songPlay;
+    }
+
+    function updateImgSong(src) {
+        $('.imgSong').attr('src', src);
     }
 }
