@@ -15,9 +15,9 @@ $(function () {
                 supplied: "oga, mp3",
                 wmode: "window",
                 useStateClassSkin: true,
-                autoBlur: false,
+                autoBlur: true,
                 smoothPlayBar: true,
-                keyEnabled: true,
+                keyEnabled: false,
                 playlistOptions: {
                     autoPlay: true,
                 }

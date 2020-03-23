@@ -11,6 +11,7 @@ const SongSchema = new Schema({
     length: String,
     musicPath: String,
     imagePath: String,
+    public: Boolean
 }, 
 {
     timestamps: {

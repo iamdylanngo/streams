@@ -1,0 +1,294 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="public/js/plugins/jwplayer/css/jwplayer.css">
+    <script type="text/javascript" src="public/js/plugins/jwplayer/js/jwplayer.js"></script>
+    <script type="text/javascript" src="public/js/plugins/jwplayer/js/jwplayer.controls.js"></script>
+</head>
+
+<body>
+
+    <!-- Here is the <div> for the player -->
+    <div id="myElement"></div>
+
+    <script type="text/JavaScript">
+
+      // jwplayer.key="YgtWotBOi+JsQi+stgRlQ3SK21W2vbKi/K2V86kVbwU=";
+
+      // jwplayer("myElement").setup({ 
+      //   "playlist": "http://192.168.1.4:80/api/v1/music/play/1584883117969-Chan-Ai---Orange_-Khoi.mp3"
+      // });
+
+      jwplayer.key="YgtWotBOi+JsQi+stgRlQ3SK21W2vbKi/K2V86kVbwU=";
+
+        jwplayer('myElement').setup({
+            width: '100%',
+            height: '300',
+            base:'https://lyricsbd.github.io/player/jwplayer-7.12.0/',
+            stretching: 'fill',
+            thumb : 'http://192.168.1.4:80/image/music/1584883118363-honcayeuthuong.jpg',
+            file: "http://192.168.1.4:80/api/v1/music/play/1584883117969-Chan-Ai---Orange_-Khoi.mp3",
+            image: '/web/images/bg_default.png',
+            title:'Còn Lại Gì Sau Kết Thúc (Single)',
+            timeSliderAbove: true,
+            autostart: true,
+            repeat: true,
+        });
+
+        // function playThis(index) {
+        //         jwplayer().playlistItem(index);
+        // };
+
+        //         jwplayer().playlistItem(0);
+
+        //         var device_type = 'desktop';
+        //         var listPlayed =Array();
+        //         var logPlayAlbumFlag = true;
+        //         var logSongFlag = true;
+        //         var embed= false;
+        //         var isFirst = true;
+        //         var index_st = '0';
+        //         var firstPause = false;
+        //         var userStatus = 0;
+        //         jwplayer().setMute(false);
+        //         jwplayer().onPlaylistItem(function(evt) {
+        //             logSongFlag = true;
+        //             var currentItem = jwplayer().getPlaylistItem();
+        //             itemId = currentItem.mediaid;
+        //             hashdis = new Hashids(has_key);
+        //             id = hashdis.encode(parseInt(itemId));
+        //             songId = 'so'+id;
+        //             //history.replaceState({}, '', '?st='+songId);
+        //             var uri = location.href;
+        //             if(uri.indexOf('?')>0 && embed){
+        //                 history.replaceState({}, '', '?embed=1&st='+songId);
+        //             }else{
+        //                 history.replaceState({}, '', '?st='+songId);
+        //             }
+        //             if(evt.index == 0 && evt.index != index_st) return;
+
+        //             /*var isiPad = (navigator.userAgent.match(/iPad/i) != null);
+        //             if(!isFirst && !isiPad && embed==false){
+        //                 jwplayer().stop();
+        //                 jwplayer().setMute(true);
+        //                 window.location.reload();
+        //                 return;
+        //             }*/
+        //             var playlistIndex = jwplayer().getPlaylistIndex();
+        //             if(typeof scrollToY=='function'){
+        //                 scrollToY(playlistIndex);
+        //             }
+        //         })
+        //         jwplayer().onPause(function(){
+        //             var currentItem = jwplayer().getPlaylistItem();
+        //             itemId = currentItem.mediaid;
+        //             $('#list-songs-of-the-album ul li.items').removeClass('playing');
+        //             $('#list-songs-of-the-album #song_'+itemId).addClass('onpause');
+        //         });
+        //         jwplayer().onBeforePlay(function() {
+        //             var currentItem = jwplayer().getPlaylistItem();
+        //             itemId = currentItem.mediaid;
+        // 			//var now = Math.floor(Date.now() / 1000);
+        // 			var now = '1584886864';
+        //             NhacVnCoreJs.checkVipBlock(itemId, 'song');
+        // 			if(currentItem.active_from > now){
+        // 				var curentIndex = jwplayer().getPlaylistIndex();
+        //                 var totalItem = jwplayer().getPlaylist().length;
+        //                 if(curentIndex<totalItem){
+        //                     nextItem = curentIndex+1;
+        //                 }else{
+        //                     nextItem = 0;
+        //                 }
+        //                 jwplayer().playlistItem(nextItem);
+    	// 			}
+    	// 			if(embed==false){    				
+        //                 loadLyricsV2(itemId);
+    	// 			}
+        //             $('#list-songs-of-the-album ul li.items').removeClass('onpause');
+        //             $('#list-songs-of-the-album ul li.items').removeClass('playing');
+        //             $('#list-songs-of-the-album #song_'+itemId).addClass('playing');
+                    
+        //             /* load lại có thể bạn thích nghe*/
+        //             var success_load_recommend_songs = function(html){
+        //                 $('#recommend_songs_for_song_playing').html(html);
+        //             }
+        //             ajax_load('/recommend/getSongsRecommendBySong',{'songId':itemId,'limit':8}, false,success_load_recommend_songs);
+        //         });
+        //         jwplayer().onBeforeComplete(function() {
+        //             if(isFirst){
+        //                 isFirst = false;
+        //             }
+        //         });
+        //         jwplayer().onQualityLevels(function(event){
+        //             console.log('onQualityLevels',event.currentQuality);
+        //             var bitrateIndex = event.currentQuality;
+        //             var currQL = jwplayer().getQualityLevels();
+        //             var qualityObj = currQL[bitrateIndex];
+        //             if(userStatus==0){
+        //                 if(qualityObj.label!='128K'){
+        //                     for(var i=0; i<currQL.length;i++){
+        //                         if(currQL[i].label=='128K'){
+        //                             console.log('set ',i);
+        //                             jwplayer().setCurrentQuality(i);
+        //                         }
+        //                     }
+        //                 }
+        //             }else{
+        //                 for(var i=0; i<currQL.length;i++){
+        //                     if(currQL[i].label=='320K'){
+        //                         console.log('set ',i);
+        //                         jwplayer().setCurrentQuality(i);
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //         jwplayer().onQualityChange(function(event){
+        //             console.log('onQualityChange',event.currentQuality);
+        //             var setQuality = false;
+        //             var currEQIndex = jwplayer().getCurrentQuality();
+        //             var currQL = jwplayer().getQualityLevels();
+        //             var bitrate = currQL[currEQIndex].label;
+        //             bitrate = parseInt(bitrate);
+        //             var defaultProfile = '128K';
+        //             if(userStatus==0 && bitrate==320){
+        //                 NhacVnCoreJs.popupLoginVegaId();
+        //                 var isSetDf = false;
+        //                 for(var i=0; i<currQL.length;i++){
+        //                     if(!isSetDf){
+        //                         if(currQL[i].label=='128K'){
+        //                             defaultProfile='128K';
+        //                             isSetDf=true;
+        //                         }
+        //                     }
+        //                 }
+        //                 //console.log('set pr:',defaultProfile);
+        //                 if(defaultProfile!='' && setQuality==false){
+        //                     for(var i=0; i<currQL.length;i++){
+        //                         if(currQL[i].label==defaultProfile && currEQIndex!=i){
+        //                             jwplayer().setCurrentQuality(i);
+        //                             setQuality=true;
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         })
+        //         jwplayer().onTime(function(event) {
+        //             if(firstPause==false && embed==true){
+        //                 firstPause = true;
+        //                 jwplayer().pause();
+        //             }
+        //             var currentItem = jwplayer().getPlaylistItem();
+        //             var now = '1584886864';
+        //             if(currentItem.active_from > now){
+        //                 jwplayer().pause();
+        //             }
+                    
+        //             if(Math.round(event.position) >=5){
+        //                 if(logPlayAlbumFlag) {
+        //                     logPlayAlbumFlag = false;
+        //                     var action = 'Play Album';
+        //                     if(in_array(listPlayed,'album_'+26091637)){
+        //                         var action = 'Replay Album';
+        //                     }
+        //                     var item = {id:'album_26091637'};
+        //                     if(!in_array(listPlayed,item.id)){
+        //                         listPlayed.push(item);
+        //                     }
+        //                     ajax_load('/player/logAlbum',{'id':26091637});
+                            
+        //                 }
+        //                 if(logSongFlag){
+        //                     logSongFlag = false;
+        //                     var currentItem = jwplayer().getPlaylistItem();
+        //                     itemId = currentItem.mediaid;
+        //                     itemTitle = currentItem.media_title;
+        //                     itemDesc = currentItem.media_desc;
+        //                     var action = 'Play Song';
+		// 					if(in_array(listPlayed,'song_'+itemId)){
+		// 						var action = 'Replay Song';
+		// 					}
+		// 					var item = {id:'song_'+itemId};
+        //                     if(!in_array(listPlayed,item.id)){
+        //                         listPlayed.push(item);
+        //                     }
+        //                     ajax_load('/player/logSong',{'id':itemId,'album_id':26091637});
+        //                     //console.log(device_type+'-'+action+'|'+itemId+'|'+itemTitle+'|'+itemDesc);
+		// 					//ga('send', 'event', device_type, action, itemTitle+'-'+itemDesc+'-'+itemId);
+        //                     var eventLabel = itemTitle+'-'+itemDesc+'-'+itemId;
+        //                     NhacVnCoreJs.gaTrackingEvents('Play By Content',action,eventLabel);
+        //                 }
+        //             }
+
+		// 	    })
+		// 	    var isFallback = '';
+		// 	    jwplayer().onError(function(event){
+		// 	        isFirst = true;
+        //             console.log('onError:'+event.message);
+        //             var currentItem = jwplayer().getPlaylistItem();
+        //             var fileCurrent = currentItem.file;
+        //             var isFcurr = '26091637'+fileCurrent;
+
+        //             if(isFallback!=isFcurr){
+        //                 var ref = document.referrer;
+        //             }
+        //             var playlist = jwplayer().getPlaylist();
+        //             var playlistIndex = jwplayer().getPlaylistIndex();
+
+        //             /*if(isFallback!=isFcurr){
+        //                 isFallback = isFcurr;
+        //                 var linkFallback = fileCurrent.replace('music.vegacdn.vn','media.nhac.vn');
+        //                 playlist[playlistIndex].file = linkFallback;
+        //                 playlist[playlistIndex].sources[0].file = linkFallback;
+        //                 jwplayer().load(playlist);
+        //                 jwplayer().playlistItem(playlistIndex);
+        //             }else{
+        //                 var curentIndex = jwplayer().getPlaylistIndex();
+        //                 var totalItem = jwplayer().getPlaylist().length;
+        //                 if(curentIndex<totalItem){
+        //                     nextItem = curentIndex+1;
+        //                 }else{
+        //                     nextItem = 0;
+        //                 }
+        //                 jwplayer().playlistItem(nextItem);
+        //             }*/
+        //         })
+        //         setInterval(function(){
+        //             var state = jwplayer().getState();
+        //             if(state=='PLAYING'){
+        //                 if(typeof jwplayer().getPlaylistItem() =='object'){
+        //                     var currentItem = jwplayer().getPlaylistItem();
+        //                     itemId = currentItem.mediaid;
+        //                     ajax_load('/player/logPlayEverytime',{'content_id':itemId,'album_id':26091637});
+        //                 }
+        //             }
+        //         }, 60000);
+                
+
+        //             var toak = '<div class="alert_block_vip_song">Nhạc VIP - Nghe thử miễn phí 20s</div>';
+        //             jwplayer().onTime(function(event) {
+        //                 var hd = $('#vip_block_obj');
+        //                 if(hd.length > 0){
+                        
+        //                     if(Math.round(event.position) == 0){
+        //                         $(".alert_block_vip_song").remove();
+        //                     }
+        //                     if($(".alert_block_vip_song").length == 0){
+        //                         $('#myalbum-player').append(toak);
+        //                     }
+                            
+        //                     if(Math.round(event.position) > 20){
+        //                         jwplayer().pause();
+        //                         $('#gioi-han-dung-luong').trigger('play');
+        //                     }else{
+        //                         $('#gioi-han-dung-luong').trigger('pause');
+        //                     }
+        //                 }
+        //                 return false;
+        //             });
+            
+
+    </script>
+
+</body>
+
+</html>

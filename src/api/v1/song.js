@@ -37,6 +37,7 @@ router.post('/create', async (req, res) => {
             length: req.body.length,
             musicPath: req.body.musicPath,
             imagePath: req.body.imagePath,
+            public: false
         });
 
         song.save((err) => {
@@ -76,6 +77,40 @@ router.get('/get', async (req, res) => {
             res.status(200).json({
                 message: 'get songs is successfully',
                 data: songs
+            });
+        } else {
+            res.status(500).json({
+                message: 'get songs is fail',
+                data: {}
+            });
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({
+            message: err,
+            data: {}
+        });
+    }
+});
+
+router.get('/get/:id', async (req, res) => {
+    try {
+        const identifier = req.params.id;
+        let song = await SongModel.findOne({ _id: identifier });
+        if (song) {
+            const host = 'http://' + process.env.SERVER_HOST + ':' + process.env.SERVER_PORT;
+            let songResult = {
+                _id: song._id,
+                title: song.title,
+                artist: song.artist,
+                genreId: song.genreId,
+                userId: song.userId,
+                imagePath: host + '/image/music/'+ song.imagePath,
+                musicPath: host + '/api/v1/music/play/' + song.musicPath,
+            };
+            res.status(200).json({
+                message: 'get songs is successfully',
+                data: songResult
             });
         } else {
             res.status(500).json({

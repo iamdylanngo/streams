@@ -10,7 +10,7 @@ services:
     working_dir: /usr/src/service
     command: >
       sh -c "npm i &&
-             npm run start"
+             npm run watch"
     ports:
       - 80:80
   mongo:

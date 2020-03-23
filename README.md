@@ -38,3 +38,6 @@ docker-compose up -d
 mkdir -p upload/music
 mkdir -p upload/image/music
 ```
+
+Key bản 8 : .key=eNFaXCjyURVoCCGiHp7HTQ3hDhE/AfL0g8VE1fRbL84=
+Key bản 7 : jwplayer.key="YgtWotBOi+JsQi+stgRlQ3SK21W2vbKi/K2V86kVbwU=";
