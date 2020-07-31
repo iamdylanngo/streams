@@ -73,7 +73,8 @@ let diskStorage = multer.diskStorage({
         callback(null, "upload/music");
     },
     filename: (req, file, callback) => {
-        let math = ["audio/mpeg3", "audio/x-mpeg-3", "audio/mp3"];
+        console.log(file.mimetype);
+        let math = ["audio/mpeg3", "audio/x-mpeg-3", "audio/mp3", "audio/mpeg"];
         if (math.indexOf(file.mimetype) === -1) {
             let errorMess = `The file <strong>${file.originalname}</strong> is invalid. Only allowed to upload mp3.`;
             return callback(errorMess, null);
