@@ -6,7 +6,10 @@ const Schema = mongoose.Schema;
 const PlaylistSchema = new Schema({
     title: String,
     userId: String,
-    songId: [String],
+    songs: [{
+        songId: String,
+        position: String
+    }],
     imagePath: String 
 }, 
 {

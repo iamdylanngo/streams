@@ -16,9 +16,6 @@ router.post('/create', async (req, res) => {
         if (!req.body.userId) {
             return handlerError(res, 400, 'userId is require.');
         }
-        if (!req.body.songId) {
-            return handlerError(res, 400, 'songId is require.');
-        }
         if (!req.body.imagePath) {
             return handlerError(res, 400, 'imagePath is require.');
         }
@@ -26,7 +23,6 @@ router.post('/create', async (req, res) => {
         let playlist = await new PlaylistModel({
             title: req.body.title,
             userId: req.body.userId,
-            songId: req.body.songId,
             imagePath: req.body.imagePath,
         });
 

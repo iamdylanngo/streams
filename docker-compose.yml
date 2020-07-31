@@ -12,12 +12,12 @@ services:
       sh -c "npm i &&
              npm run watch"
     ports:
-      - 80:80
+      - 8080:8080
   mongo:
     image: mongo
     restart: always
     ports:
-      - 27017:27017
+      - 27017
     volumes:
       - './db-init:/docker-entrypoint-initdb.d'
     env_file:
